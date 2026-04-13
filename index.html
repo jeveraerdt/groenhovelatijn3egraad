@@ -1,89 +1,188 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Latijn 3e Graad – Groenhove</title>
-  
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/_theme.css">
-  <link rel="stylesheet" href="css/_patterns.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Latijn 3e graad — S.O. Groenhove Waregem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Flanders Art Sans';
+    src: url('fonts/flanders-art-sans/FlandersArtSans-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  :root {
+    --waregem-red-pulse: #FF3B1D
+    --balanced-yellow: #ffea3d;
+    --achtergrond: #fffbd8;
+    --kaart: #ffffff;
+    --rand: #e2e6ed;
+    --tekst: #1a1a1a;
+    --tekst-zacht: #9aa5a0;
+    --ft: 'Flanders Art Sans', Arial, sans-serif;
+    --fb: 'Noto Sans', Arial, sans-serif;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { min-height: 100vh; }
+  body {
+    font-family: var(--fb);
+    background: var(--achtergrond);
+    color: var(--tekst);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    position: relative;
+    overflow-x: hidden;
+  }
+  .hero-curve {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: auto;
+    pointer-events: none;
+    z-index: 0;
+    user-select: none;
+  }
+  .content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .logo-wrap { margin-bottom: 1.5rem; text-align: center; }
+  .school-logo { width: 72px; height: auto; display: block; margin: 0 auto 0.75rem; }
+  .site-titel { font-family: var(--fb); font-size: 13px; color: var(--tekst-zacht); letter-spacing: 0.3px; font-weight: 400; }
+
+  .keuze-titel {
+    font-family: var(--ft);
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--deep-forest);
+    text-align: center;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+  }
+  .keuze-subtitel {
+    font-family: var(--fb);
+    font-size: 13px;
+    color: var(--tekst-zacht);
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .jaar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 2rem;
+    align-items: stretch;
+  }
+
+  .jaar-kaart {
+    background: var(--kaart);
+    border: 0.5px solid var(--rand);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+    transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 16px rgba(0, 50, 25, 0.04);
+  }
+  .jaar-kaart.vijfde:hover { border-color: var(--deep-forest); transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0, 102, 51, 0.12); }
+  .jaar-kaart.zesde:hover { border-color: var(--vital-green); transform: translateY(-3px); box-shadow: 0 8px 22px rgba(101, 179, 46, 0.12); }
+
+  .jaar-icoon {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  .jaar-icoon img {
+    max-width: 110px;
+    max-height: 100px;
+    width: auto;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  .jaar-naam {
+    font-family: var(--ft);
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .jaar-kaart.vijfde .jaar-naam { color: var(--waregem-red-pulse); }
+  .jaar-kaart.zesde .jaar-naam { color: var(--balanced-yellow); }
+
+  .jaar-omschrijving { font-family: var(--fb); font-size: 13px; color: var(--tekst-zacht); line-height: 1.5; flex-grow: 1; }
+  .jaar-pijl { font-size: 20px; color: var(--rand); transition: color 0.15s; }
+  .jaar-kaart.vijfde:hover .jaar-pijl { color: var(--waregem-red-pulse); }
+  .jaar-kaart.zesde:hover .jaar-pijl { color: var(--balanced-yellow); }
+
+  .voet { font-family: var(--fb); font-size: 12px; color: var(--tekst-zacht); text-align: center; margin-top: 1rem; }
+
+  @media (max-width: 720px) {
+    .keuze-titel { font-size: 30px; }
+    .hero-curve { height: 100vh; }
+  }
+</style>
 </head>
 <body>
-  
-  <!-- HEADER -->
-  <header class="header">
-    <nav class="nav container">
-      <div class="nav-logo">
-        <img src="images/nav/logo.svg" alt="Groenhove Logo" style="width: 50px;">
-      </div>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#3d">3de Jaar</a></li>
-        <li><a href="#4d">4de Jaar</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <svg class="hero-curve hero-curve--3d" viewBox="0 0 1456 840" xmlns="http://www.w3.org/2000/svg" style="fill: var(--curve-color);">
-      <path d="M 0 0 Q 400 100 400 400 L 400 840 L 0 840 Z" />
-    </svg>
-    
-    <div class="hero-content">
-      <div class="hero-logo">
-        <img src="images/nav/logo.svg" alt="Groenhove" style="width: 100px;">
-      </div>
-      <p style="font-size: 0.9rem; color: var(--color-text-light); margin-bottom: 1rem;">S.O. Groenhove Waregem</p>
-      <h1>Latijn 2e graad</h1>
-      <p>Kies het jaar om verder te gaan.</p>
+  <img class="hero-curve" src="images/heroes/curvedhero.svg" alt="" aria-hidden="true">
+
+  <div class="content">
+
+    <div class="logo-wrap">
+      <img class="school-logo" src="images/nav/logo.svg" alt="Groenhove" />
+      <p class="site-titel">S.O. Groenhove Waregem</p>
     </div>
-  </section>
 
-  <!-- MAIN -->
-  <section class="section container">
-    <div class="grid grid-2" style="margin-top: 3rem;">
-      
-      <!-- 3DE JAAR -->
-      <div class="card">
-        <div class="card-content">
-          <svg class="card-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="100" cy="60" r="30" fill="var(--color-primary-3d)"/>
-            <path d="M 100 100 Q 70 130 70 160 L 130 160 Q 130 130 100 100 Z" fill="var(--color-primary-3d)"/>
-          </svg>
-          <h3 style="color: var(--color-primary-3d);">3de jaar</h3>
-          <p>Grammatica, teksten, vocabularium en oefeningen.</p>
-          <a href="#" class="card-link">Ga naar 3de jaar →</a>
-        </div>
-      </div>
-      
-      <!-- 4DE JAAR -->
-      <div class="card">
-        <div class="card-content">
-          <svg class="card-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="100" cy="60" r="30" fill="var(--color-primary-4d)"/>
-            <path d="M 100 100 Q 70 130 70 160 L 130 160 Q 130 130 100 100 Z" fill="var(--color-primary-4d)"/>
-            <path d="M 85 80 L 95 90 L 115 70" stroke="var(--color-primary-4d)" stroke-width="3" fill="none"/>
-          </svg>
-          <h3 style="color: var(--color-primary-4d);">4de jaar</h3>
-          <p>Grammatica, vocabularium en oefeningen.</p>
-          <a href="#" class="card-link">Ga naar 4de jaar →</a>
-        </div>
-      </div>
-      
+    <h1 class="keuze-titel">Latijn 3e graad</h1>
+    <p class="keuze-subtitel">Kies het jaar om verder te gaan.</p>
+
+    <div class="jaar-grid">
+
+      <a class="jaar-kaart vijfde" href="5dejaar/index.html">
+        <div class="jaar-icoon"><img src="images/cards/tegel-5dejaar.svg" alt="3de jaar" /></div>
+        <div class="jaar-naam">5de jaar</div>
+        <div class="jaar-omschrijving">Grammatica, teksten, vocabularium en oefeningen.</div>
+        <div class="jaar-pijl">›</div>
+      </a>
+
+      <a class="jaar-kaart zesde" href="6dejaar/index.html">
+        <div class="jaar-icoon"><img src="images/cards/tegel-6dejaar.svg" alt="6de jaar" /></div>
+        <div class="jaar-naam">5de jaar</div>
+        <div class="jaar-omschrijving">Grammatica, teksten, vocabularium en oefeningen.</div>
+        <div class="jaar-pijl">›</div>
+      </a>
+
     </div>
-  </section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <p>J. Everaerdt - S.O. Groenhove Waregem campus Atheneum</p>
-    <p style="font-size: 0.9rem; margin-top: 1rem; color: var(--color-yellow);">Groenhove © 2025-2026</p>
-  </footer>
+    <p class="voet">J. Everaerdt &mdash; S.O. Groenhove Waregem campus Atheneum</p>
 
-  <!-- JS -->
-  <script src="js/app.js"></script>
+  </div>
 
 </body>
 </html>
