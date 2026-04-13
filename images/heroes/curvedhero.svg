@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 1366 768" width="1366" height="768">
+
+  <!-- top-left white border band -->
+  <path fill="#f3f1ef" d="
+    M 43 0
+    L 65 0
+    L 0 111
+    L 0 73
+    Z"/>
+
+  <!-- yellow shape -->
+  <path fill="#ffea3d" d="
+    M 65 0
+    L 352 0
+    A 437.149 437.149 0 0 0 577 768
+    L 0 768
+    L 0 111
+    Z"/>
+</svg>
