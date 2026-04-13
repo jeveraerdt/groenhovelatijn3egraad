@@ -1,6 +1,6 @@
-# Latijn 2e Graad – Groenhove
+# Latijn 3e Graad – Groenhove
 
-Basis-site voor Latijn (2e graad) op S.O. Groenhove Waregem, campus Atheneum.
+Basis-site voor Latijn (3e graad) op S.O. Groenhove Waregem, campus Atheneum.
 
 ## Structuur
 
@@ -15,8 +15,8 @@ Basis-site voor Latijn (2e graad) op S.O. Groenhove Waregem, campus Atheneum.
 
 ## Kleurenschema (Groenhove Huisstijl)
 
-- **Deep Forest** `#006633` — 3de jaar
-- **Vital Green** `#65b32e` — 4de jaar
+- **Waregem Red Pulse** `#FF3B1D` — 5de jaar
+- **Balanced Yellow** `#ffea3d` — 6de jaar
 - **Waregem Pulse Red** `#FF3B1D` — Links/buttons
 - **Balanced Yellow** `#ffea3d` — Highlights
 
