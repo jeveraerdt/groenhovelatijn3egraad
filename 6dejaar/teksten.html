@@ -3,29 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teksten - Thema's — Latijn 4de jaar</title>
+<title>Teksten - Thema's — Latijn 6de jaar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/_theme.css">
+<link rel="stylesheet" href="../css/_theme.css">
 <style>
   @font-face {
     font-family: 'Flanders Art Sans';
-    src: url('fonts/FlandersArtSans-Bold.otf') format('opentype');
+    src: url('../fonts/flanders-art-sans/FlandersArtSans-Bold.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
   }
 
   :root {
-    --jaar-kleur: #65b32e;
-    --accent: #FF3B1D;
-    --achtergrond: #e0efd5;
-    --wit: #f3f1ef;
-    --zwart: #010100;
-    --tekst-zacht: #5a6b4a;
-    --rand: #c8d4c0;
-    --radius: 12px;
+    --jaar-kleur:   #ffea3d;   /* Balanced Yellow — 6de jaar hoofdkleur */
+    --accent:       #FF3B1D;   /* Waregem Pulse Red — aanvullende kleur */
+    --deep-forest:  #006633;   /* Deep Forest — tekst op gele vlakken */
+    --achtergrond:  #e0efd5;
+    --wit:          #f3f1ef;
+    --zwart:        #010100;
+    --tekst-zacht:  #4a5e45;
+    --rand:         #c8d4c0;
+    --radius:       12px;
     --ft: 'Flanders Art Sans', Arial, sans-serif;
     --fb: 'Noto Sans', Arial, sans-serif;
   }
@@ -42,15 +43,17 @@
     flex-direction: column;
   }
 
-  /* ══ MERKLINT ══ */
+  /* ══ MERKLINT ══
+     Geel lint met rood logo (logo_rood.svg) en donkere tekst.
+     Geel op donkergroen: leesbaar (contrast ~8:1).               */
   .site-header {
     background: var(--jaar-kleur);
-    color: var(--wit);
+    color: var(--accent);
     display: flex;
     align-items: center;
     gap: 1rem;
     padding: .85rem 1.5rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,.10);
   }
   .site-header .logo { height: 38px; width: auto; display: block; }
   .site-header h1 {
@@ -59,6 +62,7 @@
     font-size: 1.25rem;
     margin: 0;
     letter-spacing: .02em;
+    color: var(--accent);
   }
   .site-header .sub {
     font-family: var(--ft);
@@ -66,7 +70,8 @@
     font-weight: 400;
     letter-spacing: .08em;
     text-transform: uppercase;
-    opacity: .85;
+    color: var(--accent);
+    opacity: .75;
     margin-left: auto;
   }
 
@@ -99,9 +104,9 @@
     transition: background .15s, border-color .15s, color .15s;
   }
   .back-btn:hover, .ctrl-btn:hover {
-    background: #ffea3d;
-    color: #006633;
-    border-color: #ffea3d;
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
   }
   .back-btn svg { width: 14px; height: 14px; }
   .topbar-divider { width: 1px; height: 22px; background: var(--rand); margin: 0 .4rem; }
@@ -122,7 +127,7 @@
     gap: .75rem;
     margin-bottom: 1rem;
     padding-bottom: .6rem;
-    border-bottom: 1.5px solid var(--rand);
+    border-bottom: 2px solid var(--jaar-kleur); /* gele scheiding — zichtbaar op lichtgroene bg */
   }
   .thema-titel {
     font-family: var(--ft);
@@ -130,7 +135,7 @@
     font-size: 13px;
     letter-spacing: .1em;
     text-transform: uppercase;
-    color: var(--jaar-kleur);
+    color: var(--deep-forest); /* Deep Forest — leesbaar */
   }
   .thema-sub {
     font-family: var(--fb);
@@ -139,6 +144,7 @@
     font-style: italic;
   }
 
+  /* ══ KAART-GRID ══ */
   .tekst-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -161,25 +167,31 @@
   .tekst-kaart:hover {
     border-color: var(--accent);
     transform: translateY(-2px);
-    box-shadow: 0 4px 18px rgba(255,234,61,.18);
+    box-shadow: 0 4px 18px rgba(255,59,29,.12); /* rode gloed bij hover */
   }
   .tekst-kaart.coming-soon { opacity: .55; pointer-events: none; cursor: default; }
+
   .kaart-meta {
     font-family: var(--fb);
     font-size: 10.5px;
     font-weight: 700;
     letter-spacing: .1em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--accent); /* Waregem Pulse Red als metakleur */
     margin-bottom: 1px;
   }
+
+  /* Kaarttitel: Deep Forest tekst + gele accentbalk (zelfde patroon als _theme.css) */
   .kaart-titel {
     font-family: var(--ft);
     font-weight: 700;
     font-size: 16px;
-    color: var(--jaar-kleur);
+    color: var(--accent);
+    border-left: 3px solid var(--jaar-kleur);
+    padding-left: 7px;
     line-height: 1.3;
   }
+
   .kaart-auteur {
     font-family: var(--fb);
     font-size: 12px;
@@ -195,6 +207,7 @@
     padding-top: 2px;
   }
   .tekst-kaart:hover .kaart-pijl { color: var(--accent); }
+
   .kaart-badge {
     position: absolute;
     top: .7rem;
@@ -222,9 +235,10 @@
 <body>
 
 <header class="site-header">
-  <img class="logo" src="../images/nav/logo_mono_wit.png" alt="Groenhove">
+  <!-- logo_rood.svg: zichtbaar op gele achtergrond -->
+  <img class="logo" src="../images/nav/logo_rood.svg" alt="Groenhove">
   <h1>Teksten</h1>
-  <span class="sub">S.O. Groenhove Waregem</span>
+  <span class="sub">Latijn 6de jaar</span>
 </header>
 
 <div class="site-toolbar">
@@ -299,11 +313,20 @@
         <div class="kaart-auteur"></div>
         <div class="kaart-pijl">&#8250;</div>
       </a>
-      <!-- TEKST 4 — ACTIEF -->
-      <a class="tekst-kaart" href="teksten/tekst4-thema2-4de.html">
-        <div class="kaart-meta">Tekst 4</div>
-        <div class="kaart-titel">Het complot</div>
-        <div class="kaart-auteur">Galbert van Brugge</div>
+    </div>
+  </div>
+
+  <div class="thema-sectie" id="thema-3">
+    <div class="thema-header">
+      <span class="thema-titel">Thema 3</span>
+      <span class="thema-sub">Binnenkort</span>
+    </div>
+    <div class="tekst-grid">
+      <a class="tekst-kaart coming-soon" href="#">
+        <span class="kaart-badge">Binnenkort</span>
+        <div class="kaart-meta">Tekst 1</div>
+        <div class="kaart-titel">&mdash;</div>
+        <div class="kaart-auteur"></div>
         <div class="kaart-pijl">&#8250;</div>
       </a>
     </div>
