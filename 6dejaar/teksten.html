@@ -18,10 +18,10 @@
   }
 
   :root {
-    --jaar-kleur:   #ffea3d;   /* Balanced Yellow — 6de jaar hoofdkleur */
-    --accent:       #FF3B1D;   /* Waregem Pulse Red — aanvullende kleur */
-    --deep-forest:  #006633;   /* Deep Forest — tekst op gele vlakken */
-    --achtergrond:  #fffce8;   /* Zeer licht geel — Balanced Yellow basis */
+    --jaar-kleur:   #ffea3d;
+    --accent:       #FF3B1D;
+    --deep-forest:  #006633;
+    --achtergrond:  #fffce8;
     --wit:          #f3f1ef;
     --zwart:        #010100;
     --tekst-zacht:  #4a5e45;
@@ -43,9 +43,6 @@
     flex-direction: column;
   }
 
-  /* ══ MERKLINT ══
-     Geel lint met rood logo (logo_rood.svg) en donkere tekst.
-     Geel op donkergroen: leesbaar (contrast ~8:1).               */
   .site-header {
     background: var(--jaar-kleur);
     color: var(--accent);
@@ -75,7 +72,6 @@
     margin-left: auto;
   }
 
-  /* ══ TOOLBAR ══ */
   .site-toolbar {
     background: var(--wit);
     border-bottom: 1px solid var(--rand);
@@ -111,7 +107,6 @@
   .back-btn svg { width: 14px; height: 14px; }
   .topbar-divider { width: 1px; height: 22px; background: var(--rand); margin: 0 .4rem; }
 
-  /* ══ CONTENT ══ */
   .content-wrap {
     flex: 1;
     padding: 2rem 1.5rem 3rem;
@@ -127,7 +122,7 @@
     gap: .75rem;
     margin-bottom: 1rem;
     padding-bottom: .6rem;
-    border-bottom: 2px solid var(--accent); /* gele scheiding — zichtbaar op lichtgroene bg */
+    border-bottom: 2px solid var(--accent);
   }
   .thema-titel {
     font-family: var(--ft);
@@ -135,7 +130,7 @@
     font-size: 13px;
     letter-spacing: .1em;
     text-transform: uppercase;
-    color: var(--deep-forest); /* Deep Forest — leesbaar */
+    color: var(--deep-forest);
   }
   .thema-sub {
     font-family: var(--fb);
@@ -144,7 +139,6 @@
     font-style: italic;
   }
 
-  /* ══ KAART-GRID ══ */
   .tekst-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -167,7 +161,7 @@
   .tekst-kaart:hover {
     border-color: var(--accent);
     transform: translateY(-2px);
-    box-shadow: 0 4px 18px rgba(255,59,29,.12); /* rode gloed bij hover */
+    box-shadow: 0 4px 18px rgba(255,59,29,.12);
   }
   .tekst-kaart.coming-soon { opacity: .55; pointer-events: none; cursor: default; }
 
@@ -177,11 +171,9 @@
     font-weight: 700;
     letter-spacing: .1em;
     text-transform: uppercase;
-    color: var(--accent); /* Waregem Pulse Red als metakleur */
+    color: var(--accent);
     margin-bottom: 1px;
   }
-
-  /* Kaarttitel: Deep Forest tekst + gele accentbalk (zelfde patroon als _theme.css) */
   .kaart-titel {
     font-family: var(--ft);
     font-weight: 700;
@@ -191,7 +183,6 @@
     padding-left: 7px;
     line-height: 1.3;
   }
-
   .kaart-auteur {
     font-family: var(--fb);
     font-size: 12px;
@@ -235,7 +226,6 @@
 <body>
 
 <header class="site-header">
-  <!-- logo_rood.svg: zichtbaar op gele achtergrond -->
   <img class="logo" src="../images/nav/logo_rood.svg" alt="Groenhove">
   <h1>Teksten</h1>
   <span class="sub">Latijn 6de jaar</span>
@@ -297,13 +287,13 @@
         <div class="kaart-auteur"></div>
         <div class="kaart-pijl">&#8250;</div>
       </a>
-      </a>
-       <!-- TEKST 6 — ACTIEF -->
+      <!-- TEKST 6 — ACTIEF -->
       <a class="tekst-kaart" href="teksten/tekst6-thema1-hecastus-6de.html">
         <div class="kaart-meta">Tekst 6</div>
         <div class="kaart-titel">Doodsboodschap</div>
         <div class="kaart-auteur">Georgius Macropedius</div>
         <div class="kaart-pijl">&#8250;</div>
+      </a>
     </div>
   </div>
 
