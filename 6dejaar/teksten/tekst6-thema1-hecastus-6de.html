@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doodsboodschap – T6 Thema Dramatiek · 6de jaar · Groenhove</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --jaar-kleur: #ffea3d;
+  --accent: #FF3B1D;
+  --deep-forest: #006633;
+  --paper: #fffce8;
+  --rule: rgba(255,59,29,.15);
+  --ink: #010100;
+  --ink-mid: #3a3a2a;
+  --ink-light: #5a5a4a;
+  --achtergrond: #fffce8;
+  --wit: #f3f1ef;
+  --rand: #e0d8b0;
+  --radius: 12px;
+  --ft: 'Flanders Art Sans', Arial, sans-serif;
+  --fb: 'Noto Sans', Arial, sans-serif;
+  --blue: #006633;
+  --blue-mid: #004d26;
+  --magenta: #FF3B1D;
+  --col-split: 60%;
+}
+@font-face {
+  font-family: 'Flanders Art Sans';
+  src: url('../../fonts/flanders-art-sans/FlandersArtSans-Bold.otf') format('opentype');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+/* ══ MERKLINT — geel + rode tekst + rood logo ══ */
+.site-header {
+  background: var(--jaar-kleur);
+  color: var(--accent);
+  display: flex; align-items: center; gap: 1rem;
+  padding: .85rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.10);
+  width: 100%; box-sizing: border-box;
+}
+.site-header .logo { height: 38px; width: auto; display: block; flex-shrink: 0; }
+.site-header h1 {
+  font-family: var(--ft); font-weight: 700; font-size: 1.25rem;
+  margin: 0; letter-spacing: .02em; white-space: nowrap;
+  color: var(--accent);
+}
+.site-header .sub {
+  font-family: var(--ft); font-size: .78rem; font-weight: 400;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--accent); opacity: .8;
+  margin-left: auto; white-space: nowrap; padding-left: .5rem;
+}
+
+.site-toolbar {
+  background: var(--wit); border-bottom: 1px solid var(--rand);
+  padding: .6rem 1.5rem; display: flex; align-items: center;
+  justify-content: space-between; position: sticky; top: 0; z-index: 200; height: 56px;
+}
+.toolbar-left { display: flex; align-items: center; gap: .5rem; }
+.toolbar-right { display: flex; align-items: center; gap: .5rem; }
+.topbar-label {
+  font-family: var(--ft); font-size: .7rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase; color: var(--blue); opacity: .6;
+}
+.topbar-divider { width: 1px; height: 22px; background: var(--rand); margin: 0 .4rem; }
+.back-btn, .ctrl-btn {
+  font-family: var(--fb); font-size: .85rem; color: var(--ink);
+  background: transparent; border: 1px solid var(--rand); border-radius: 20px;
+  padding: .35rem .85rem; cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; gap: .35rem;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.back-btn:hover, .ctrl-btn:hover {
+  background: var(--accent); color: #fff; border-color: var(--accent);
+}
+.back-btn.active, .ctrl-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+.back-btn svg { width: 14px; height: 14px; }
+
+:root {
+  --green: #2d7a3a; --green-bg: #e8f5eb;
+  --orange: #c05a00; --orange-bg: #fff0e0;
+  --purple: #6a1a8a; --purple-bg: #f3e8fb;
+  --hl: #fff3c4; --hl-b: #e8c840;
+  --lh: 2.3; --fs: 1.18rem;
+}
+body { font-family: var(--fb); overflow-x: hidden; background: var(--achtergrond); margin: 0; padding: 0; }
+
+.weergave-wrap { position: relative; }
+.weergave-menu {
+  display: none; position: absolute; top: calc(100% + 6px); left: 0;
+  background: #fff; border: 1.5px solid rgba(0,102,51,.18);
+  border-radius: 12px; box-shadow: 0 6px 24px rgba(0,102,51,.13);
+  z-index: 400; min-width: 160px; padding: .35rem 0; overflow: hidden;
+}
+.weergave-menu.open { display: block; animation: fadeUp .12s ease both; }
+.weergave-item {
+  display: flex; align-items: center; gap: .45rem; width: 100%;
+  background: none; border: none; padding: .45rem .9rem;
+  font-family: var(--ft); font-size: .7rem; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase; color: var(--accent);
+  cursor: pointer; transition: background .12s, color .12s; white-space: nowrap;
+}
+.weergave-item:hover { background: #fef8e0; }
+.weergave-item.active { color: var(--deep-forest); }
+.weergave-item svg { width: 12px; height: 12px; flex-shrink: 0; }
+.weergave-chevron { transition: transform .18s; }
+#btnWeergave.open .weergave-chevron { transform: rotate(180deg); }
+
+.outer { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+.main-col { max-width: 760px; margin: 0 auto; padding: 3rem 0 6rem; }
+body.twocol .outer { display: grid; grid-template-columns: var(--col-split, 60%) 12px 1fr; gap: 0; align-items: start; }
+body.twocol .main-col { max-width: none; padding: 3rem 2rem 6rem 0; }
+body.twocol .side-panel { display: flex !important; flex-direction: column; gap: 1rem; padding: 3rem 0 6rem 1.5rem; border-left: 1px solid var(--rule); position: sticky; top: 108px; max-height: calc(100vh - 108px); overflow-y: auto; }
+.side-panel { display: none; }
+
+.text-header { margin-bottom: 2rem; padding-bottom: 1.75rem; border-bottom: 1px solid var(--rule); animation: fadeUp .5s ease both; }
+.text-meta { font-family: var(--ft); font-size: .7rem; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; color: var(--accent); margin-bottom: .6rem; }
+.text-title { font-family: var(--ft); font-size: 2rem; font-weight: 600; line-height: 1.2; color: var(--deep-forest); margin-bottom: .5rem; letter-spacing: -.01em; }
+.text-sub { font-family: var(--fb); font-style: italic; font-size: .875rem; color: var(--ink-light); line-height: 1.5; }
+
+.hero-wrapper { position: relative; border-radius: 12px; overflow: hidden; margin-bottom: 2rem; height: 320px; animation: fadeUp .5s ease both; }
+.hero-img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; display: block; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.18) 55%, rgba(0,0,0,0) 100%); pointer-events: none; }
+.hero-tekst { position: absolute; bottom: 0; left: 0; padding: 1.4rem 1.6rem; pointer-events: none; }
+.hero-meta { font-family: var(--ft); font-size: .68rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--jaar-kleur); margin-bottom: .35rem; text-shadow: 0 1px 4px rgba(0,0,0,.6); }
+.hero-title { font-family: var(--ft); font-size: 2.1rem; font-weight: 700; line-height: 1.1; color: var(--jaar-kleur); margin-bottom: .35rem; letter-spacing: -.01em; text-shadow: 0 2px 8px rgba(0,0,0,.7); }
+.hero-sub { font-family: var(--fb); font-style: italic; font-size: .875rem; color: rgba(255,255,255,.88); line-height: 1.5; text-shadow: 0 1px 4px rgba(0,0,0,.6); }
+
+.context-block {
+  background: linear-gradient(135deg, #fffce8, #fff8d6);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0; padding: 1rem 1.3rem; margin-bottom: 2rem;
+  font-family: var(--ft); font-size: .86rem; line-height: 1.65; color: #3a3a2a;
+  animation: fadeUp .5s .07s ease both;
+}
+.context-block strong { display: block; font-family: var(--ft); font-size: .68rem; letter-spacing: .11em; text-transform: uppercase; color: var(--accent); margin-bottom: .25rem; font-weight: 600; }
+.context-subtitel { display: block; font-family: var(--fb); font-style: italic; font-size: .76rem; color: #888; margin-bottom: .5rem; }
+
+.extras-strip { margin-bottom: 2rem; animation: fadeUp .5s .12s ease both; }
+.extras-row { display: flex; align-items: center; gap: .9rem; }
+.extras-label { font-family: var(--ft); font-size: .7rem; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; color: var(--accent); }
+.extras-icon { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 8px; border: none; background: none; color: var(--accent); cursor: pointer; padding: 0; opacity: .75; transition: opacity .15s, background .15s; text-decoration: none; }
+.extras-icon:hover { opacity: 1; background: #fff3c0; }
+.extras-icon svg { width: 18px; height: 18px; }
+.extras-icon.active { opacity: 1; background: #fff3c0; }
+
+.noten-block { display: none; }
+.noten-block.vis { display: block; }
+
+.reveal-bar { display: none; align-items: center; gap: .6rem; margin-bottom: 1.5rem; padding: .65rem 1rem; background: var(--paper); border: 1.5px solid var(--rand); border-radius: 10px; font-family: var(--ft); font-size: .78rem; color: var(--ink-mid); flex-wrap: wrap; }
+.reveal-bar.vis { display: flex; }
+.reveal-bar button { background: var(--deep-forest); color: #fff; border: none; border-radius: 6px; padding: .3rem .8rem; font-family: var(--ft); font-size: .72rem; cursor: pointer; transition: background .15s; white-space: nowrap; }
+.reveal-bar button:hover { background: var(--blue-mid); }
+.reveal-bar button.sec { background: var(--paper); color: var(--deep-forest); border: 1.5px solid var(--deep-forest); }
+.reveal-bar button.sec:hover { background: #f0f8ec; }
+.rev-count { margin-left: auto; color: var(--ink-light); font-size: .68rem; white-space: nowrap; }
+
+.latin-text { font-size: var(--fs); line-height: var(--lh); animation: fadeUp .5s .18s ease both; }
+body.font-lg .latin-text { --fs: 1.35rem; --lh: 2.45; }
+.latin-para { margin-bottom: 2rem; }
+
+/* Spreker-label voor dramatekst */
+.spreker {
+  display: inline-block;
+  font-family: var(--ft); font-size: .75rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--accent);
+  margin-right: .4rem;
+  vertical-align: baseline;
+}
+
+.wg { display: inline; border-radius: 4px; cursor: pointer; transition: background .15s, outline .1s; padding: 1px 0; }
+.wg:hover { background: rgba(0,102,51,.07); }
+.reveal-mode .wg { opacity: .12; transition: opacity .3s; }
+.reveal-mode .wg.revealed { opacity: 1; }
+.reveal-mode .wg.current { opacity: 1; background: var(--hl); outline: 1px solid var(--hl-b); border-radius: 4px; }
+
+.lat-word { display: inline; border-radius: 3px; cursor: pointer; transition: background .12s; padding: 0 1px; }
+.lat-word:hover { background: rgba(0,102,51,.09); }
+.lat-word.st1 { background: var(--green-bg); color: var(--green); border-bottom: 1.5px solid var(--green); }
+.lat-word.st2 { background: var(--orange-bg); color: var(--orange); border-bottom: 1.5px solid var(--orange); }
+
+body.interlin .lat-word { display: inline-flex; flex-direction: column; align-items: center; vertical-align: bottom; margin: 0 1px; }
+body.interlin .lat-word .iln { display: block; font-family: var(--ft); font-size: .52em; color: var(--accent); line-height: 1.1; text-align: center; pointer-events: none; white-space: nowrap; }
+
+.latin-para.tekst-scheiding { border-top: none; margin-top: .2em; padding-top: 0; }
+
+.numbered-view { display: none; }
+.numbered-view.on { display: block; }
+.plain-view.off { display: none; }
+.latin-line { display: flex; gap: 1.4rem; line-height: var(--lh); }
+.ln { font-family: var(--ft); font-size: .62rem; color: #ccc; min-width: 1.7rem; text-align: right; padding-top: .44em; user-select: none; flex-shrink: 0; }
+.lc { flex: 1; }
+
+.word-popup { position: absolute; z-index: 500; background: var(--paper); border: 1.5px solid var(--rand); border-radius: 10px; box-shadow: 0 8px 32px rgba(0,102,51,.15); padding: .85rem 1.1rem; max-width: 300px; min-width: 200px; font-family: var(--ft); font-size: .78rem; pointer-events: none; opacity: 0; transform: translateY(4px); transition: opacity .18s, transform .18s; }
+.word-popup.vis { opacity: 1; transform: translateY(0); }
+.wp-word { font-family: var(--fb); font-size: 1.1rem; font-weight: 600; color: var(--deep-forest); margin-bottom: .1rem; }
+.wp-lemma { font-size: .68rem; color: var(--ink-light); margin-bottom: .35rem; }
+.wp-row { display: flex; gap: .4rem; margin-bottom: .2rem; align-items: flex-start; }
+.wp-tag { font-size: .6rem; font-weight: 700; padding: .08rem .35rem; border-radius: 10px; letter-spacing: .04em; text-transform: uppercase; flex-shrink: 0; margin-top: .12rem; }
+.tg { background: var(--green-bg); color: var(--green); }
+.to { background: var(--orange-bg); color: var(--orange); }
+.tp { background: var(--purple-bg); color: var(--purple); }
+.tw { background: #e8f5eb; color: var(--deep-forest); }
+.wp-val { color: var(--ink-mid); line-height: 1.45; }
+.wp-sep { border: none; border-top: 1px solid var(--rand); margin: .4rem 0; }
+.wp-hint { font-size: .7rem; color: var(--ink-light); }
+
+.footnotes { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); }
+.fn-title { font-family: var(--ft); font-size: .66rem; letter-spacing: .11em; text-transform: uppercase; color: var(--ink-light); margin-bottom: .9rem; }
+.fn { display: flex; gap: .65rem; font-size: .8rem; line-height: 1.58; color: var(--ink-light); margin-bottom: .45rem; font-family: var(--ft); }
+.fn-n { color: var(--accent); font-size: .68rem; font-weight: 600; min-width: 1.1rem; padding-top: .1rem; flex-shrink: 0; }
+
+.side-panel .panel-card { background: var(--paper); border: 1px solid var(--rand); border-radius: 10px; padding: 1rem 1.1rem; }
+.panel-card h3 { font-family: var(--ft); font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--deep-forest); margin-bottom: .7rem; }
+.panel-word { display: flex; justify-content: space-between; align-items: baseline; padding: .32rem 0; border-bottom: 1px solid var(--rand); font-size: .85rem; gap: .5rem; }
+.panel-word:last-child { border-bottom: none; }
+.pw-lat { font-family: var(--fb); font-weight: 600; color: var(--deep-forest); }
+.pw-aanv { font-family: var(--ft); font-size: .65rem; color: var(--ink-light); }
+.pw-nl { font-family: var(--ft); font-size: .72rem; color: var(--ink-mid); text-align: right; max-width: 55%; }
+.pw-basis { display: inline-block; font-size: .55rem; font-weight: 700; padding: .04rem .28rem; border-radius: 8px; background: #fde8e4; color: var(--accent); text-transform: uppercase; margin-left: .3rem; vertical-align: middle; }
+.panel-note { padding: .3rem 0; font-family: var(--ft); font-size: .78rem; color: var(--ink-mid); line-height: 1.5; border-bottom: 1px solid var(--rand); }
+.panel-note:last-child { border-bottom: none; }
+.pn-tag { display: inline-block; font-size: .6rem; font-weight: 600; padding: .05rem .35rem; border-radius: 10px; text-transform: uppercase; margin-right: .35rem; background: #fde8e4; color: var(--accent); }
+.analysis-card { background: linear-gradient(135deg, #fffce8, #fff8d6); border: 1.5px solid var(--rand); border-radius: 10px; padding: 1rem 1.1rem; font-family: var(--ft); font-size: .8rem; line-height: 1.6; }
+.ac-word { font-family: var(--fb); font-size: 1.4rem; font-weight: 600; color: var(--deep-forest); }
+.ac-lemma { font-size: .68rem; color: var(--ink-light); margin-bottom: .5rem; }
+.ac-row { display: flex; gap: .5rem; margin-bottom: .2rem; align-items: flex-start; }
+.ac-tag { font-size: .6rem; font-weight: 700; padding: .08rem .38rem; border-radius: 10px; text-transform: uppercase; flex-shrink: 0; margin-top: .15rem; }
+.ac-empty { color: var(--ink-light); font-size: .78rem; font-style: italic; }
+
+.vertaling-tekst { font-family: var(--ft); font-size: .82rem; line-height: 1.7; color: var(--ink); }
+.vertaling-tekst p { margin-bottom: .7rem; }
+.vertaling-tekst p:last-child { margin-bottom: 0; }
+
+.col-resizer { display: none; width: 12px; cursor: col-resize; align-self: stretch; position: relative; z-index: 10; flex-shrink: 0; }
+body.twocol .col-resizer { display: flex; align-items: center; justify-content: center; }
+.col-resizer-handle { width: 4px; height: 48px; border-radius: 4px; background: var(--rand); transition: background .15s, height .15s; position: sticky; top: calc(50vh - 24px); }
+.col-resizer:hover .col-resizer-handle, .col-resizer.dragging .col-resizer-handle { background: var(--deep-forest); height: 64px; }
+
+.scroll-top { position: fixed; bottom: 1.75rem; right: 1.75rem; width: 38px; height: 38px; border-radius: 50%; background: var(--accent); color: #fff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; transform: translateY(8px); transition: all .2s; box-shadow: 0 4px 14px rgba(255,59,29,.3); z-index: 100; }
+.scroll-top.on { opacity: 1; transform: translateY(0); }
+.scroll-top svg { width: 15px; height: 15px; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+
+.d-badge { display: inline-flex; align-items: center; gap: .25rem; font-family: var(--ft); font-size: .58rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: .18rem .5rem; border-radius: 20px; vertical-align: middle; margin: 0 .2rem .1rem; white-space: nowrap; transition: opacity .2s, transform .2s; opacity: 0; transform: scale(.85); }
+.d-badge.bs { background: #dbeafe; color: #1d4ed8; border: 1px solid #bfdbfe; }
+.d-badge.lpd { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+.d-badge.vis { opacity: 1; transform: scale(1); }
+.d-tooltip { position: fixed; z-index: 1000; background: var(--ink); color: #fff; font-family: var(--ft); font-size: .72rem; line-height: 1.45; padding: .45rem .7rem; border-radius: 7px; max-width: 280px; pointer-events: none; opacity: 0; transition: opacity .12s; }
+.d-tooltip.vis { opacity: 1; }
+
+.menu-divider { height: 1px; background: rgba(0,102,51,.08); margin: .25rem 0; }
+.menu-section { font-family: var(--ft); font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-light); padding: .35rem .9rem .1rem; }
+
+@media (max-width: 900px) { body.twocol .outer { display: block; } body.twocol .main-col { padding: 2rem 0 5rem; } body.twocol .side-panel { display: none !important; } }
+@media (max-width: 600px) { .main-col { padding: 2rem 0 5rem; } .outer { padding: 0 1rem; } .text-title { font-size: 1.7rem; } .site-header { padding: 0 14px; } .site-toolbar { padding: 8px 14px; height: auto; flex-wrap: wrap; } .topbar-divider { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="word-popup" id="popup">
+  <div class="wp-word" id="ppWord"></div>
+  <div class="wp-lemma" id="ppLemma"></div>
+  <div id="ppContent"></div>
+  <hr class="wp-sep" id="ppSep" style="display:none">
+  <div class="wp-hint" id="ppHint"></div>
+</div>
+
+<!-- ══ MERKLINT: geel + rood logo + rode tekst ══ -->
+<header class="site-header">
+  <img class="logo" src="../../images/nav/logo_rood.svg" alt="Groenhove">
+  <h1>Teksten</h1>
+  <span class="sub">Latijn 6de jaar</span>
+</header>
+
+<div class="site-toolbar">
+  <div class="toolbar-left">
+    <button class="back-btn" onclick="history.back()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
+      Teksten
+    </button>
+  </div>
+  <div class="toolbar-right">
+    <button class="ctrl-btn" id="btnReveal" onclick="toggleReveal()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8s2.5-5 6-5 6 5 6 5-2.5 5-6 5-6-5-6-5z"/><circle cx="8" cy="8" r="2"/></svg>
+      Onthul
+    </button>
+    <div class="weergave-wrap" id="weergaveWrap">
+      <button class="ctrl-btn" id="btnWeergave" onclick="toggleWeergaveMenu(event)">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.2"/><path d="M8 1.5v1.2M8 13.3v1.2M1.5 8h1.2M13.3 8h1.2M3.4 3.4l.85.85M11.75 11.75l.85.85M12.6 3.4l-.85.85M4.25 11.75l-.85.85"/></svg>
+        Weergave
+        <svg class="weergave-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="width:9px;height:9px;margin-left:1px"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+      <div class="weergave-menu" id="weergaveMenu">
+        <button class="weergave-item" id="btnInterlin" onclick="toggleInterlin()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 5h12M2 10h12"/></svg>
+          Interlineair
+        </button>
+        <button class="weergave-item" id="btnTwocol" onclick="toggleTwocol()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="6" height="10" rx="1"/><rect x="9" y="3" width="6" height="10" rx="1"/></svg>
+          Tweekolom
+        </button>
+        <div class="menu-divider"></div>
+        <div class="menu-section">Didactiek</div>
+        <button class="weergave-item" id="btnBs" onclick="toggleLayer('bs');event.stopPropagation()">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2563eb;flex-shrink:0;"></span>
+          Bouwstenen
+        </button>
+        <button class="weergave-item" id="btnLpd" onclick="toggleLayer('lpd');event.stopPropagation()">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#16a34a;flex-shrink:0;"></span>
+          LPD
+        </button>
+      </div>
+    </div>
+    <button class="ctrl-btn" id="btnFont" onclick="toggleFont()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12L8 4l5 8M5.5 9h5"/></svg>
+      Groter
+    </button>
+  </div>
+</div>
+
+<div class="outer">
+<div class="main-col">
+
+  <div class="d-badges" id="badges-hero" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">④ Dual coding</span>
+    <span class="d-badge lpd" data-layer="lpd">WD3_03.03.01 – situeren in tijd &amp; ruimte</span>
+  </div>
+  <div class="hero-wrapper">
+    <img src="../../images/teksten/thema1-6de/hecastus.jpg" alt="Doodsboodschap — Hecastus" class="hero-img">
+    <div class="hero-overlay"></div>
+    <div class="hero-tekst">
+      <div class="hero-meta">Thema 1 · Tekst 6 · 6de jaar</div>
+      <div class="hero-title">Doodsboodschap</div>
+      <div class="hero-sub">Terentianus Maurus, <em>Hecastus</em>, vv. 498–510 · de verschijning van de dood</div>
+    </div>
+  </div>
+
+  <div class="context-block">
+    <div class="d-badges" id="badges-context">
+      <span class="d-badge bs" data-layer="bs">① Voorkennis activeren</span>
+      <span class="d-badge lpd" data-layer="lpd">WD3_03.03.01 – situeren in tijd &amp; ruimte</span>
+    </div>
+    <strong>Context</strong>
+    <span class="context-subtitel">Dramatische achtergrond</span>
+    <p><em>Hecastus</em> is een neolatijns moraalspel uit de 16e eeuw, gebaseerd op het Middeleeuwse <em>Everyman</em>-motief. De hoofdpersoon Hecastus — zijn naam is Grieks voor "iedereen" — is een rijke man die plots wordt geconfronteerd met de doodsboodschap. In dit fragment betwist hij de boodschapper: wie heeft hem gezien? Wie kan getuigen dat hij inderdaad een man van laag karakter is? De boodschapper Panocnus beschrijft onbewogen de autoriteit van degene die Hecastus zal oordelen: niet rijkdom of rang, maar ernst van karakter, rijpheid en eerlijkheid tellen. De uitwisseling is een klassieker van het <em>contemptus mundi</em>-genre: de wereld en haar waarden worden aangevochten door de dood.</p>
+  </div>
+
+  <div class="extras-strip">
+    <div class="d-badges" id="badges-kaart" style="margin-bottom:.3rem;">
+      <span class="d-badge bs" data-layer="bs">④ Dual coding</span>
+      <span class="d-badge lpd" data-layer="lpd">WD3_03.03.01 – situeren in tijd &amp; ruimte</span>
+    </div>
+    <div class="d-badges" id="badges-tweekolom" style="margin-bottom:.3rem;">
+      <span class="d-badge bs" data-layer="bs">⑦ Scaffolding → zelfstandig</span>
+      <span class="d-badge lpd" data-layer="lpd">WD3_03.02.01.02 – talige hulpmiddelen</span>
+    </div>
+    <div class="extras-row">
+      <span class="extras-label">Extra's</span>
+      <a class="extras-icon" href="#woordenlijst-sectie" title="Woordenlijst" aria-label="Woordenlijst">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h8a1 1 0 011 1v10a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z"/><path d="M3 2v12"/><path d="M6 6h4M6 9h3"/></svg>
+      </a>
+      <button type="button" class="extras-icon" id="btnNoten" onclick="toggleNoten()" title="Grammaticale noten" aria-label="Grammaticale noten">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 3.5h11M2.5 7h11M2.5 10.5h7"/><circle cx="12" cy="11" r="1.6" fill="currentColor" stroke="none"/></svg>
+      </button>
+      <button type="button" class="extras-icon" id="btnVertaling" onclick="toggleTwocol()" title="Vertaling (tweekolom)" aria-label="Vertaling">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 4h6M4 2v2M2 4c0 2.5 2 4 4 4M6 4c0 1.5-.5 3-2 4"/><path d="M8 12l1.5-4 1.5 4M9 10.5h2"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="d-badges" id="badges-reveal" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">⑤ Actieve verwerking</span>
+    <span class="d-badge bs" data-layer="bs">⑦ Scaffolding</span>
+    <span class="d-badge lpd" data-layer="lpd">WD3_03.02.01.01 – lectuurmethode toepassen</span>
+    <span class="d-badge lpd" data-layer="lpd">WD3_03.02.01 – tekst begrijpen</span>
+  </div>
+  <div class="reveal-bar" id="revealBar">
+    <span style="font-size:.72rem;color:var(--ink-light);">Onthulling per woordgroep</span>
+    <button onclick="revealPrev()">&#8592; Vorige</button>
+    <button onclick="revealNext()">Volgende &#8594;</button>
+    <button class="sec" onclick="revealAll()">Alles tonen</button>
+    <span class="rev-count" id="revCount">0 / 0</span>
+  </div>
+
+  <div class="d-badges" id="badges-tekst" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">③ Voorbeelden &amp; modelling</span>
+    <span class="d-badge bs" data-layer="bs">⑤ Actieve verwerking</span>
+    <span class="d-badge lpd" data-layer="lpd">WD3_03.02.01.01 – lectuurmethode toepassen</span>
+    <span class="d-badge lpd" data-layer="lpd">WD3_03.01.01 – taalsystematiek</span>
+  </div>
+
+  <div class="latin-text" id="latinText">
+  <div class="plain-view" id="plainView">
+
+<!-- vv.498-499 -->
+<div class="latin-para">
+<span class="spreker">Hecastus</span>
+<span class="wg" data-wg="1"><span class="lat-word" data-w="QUem" data-l="qui, quae, quod" data-d="acc. enk. m." data-s="LV van dicebat" data-n="wie">QUem</span></span>
+<span class="wg" data-wg="2"><span class="lat-word" data-w="sese" data-l="sui / se" data-d="acc. enk. reflex." data-s="OND van esse in ACI" data-n="zichzelf">sese</span></span>
+<span class="wg" data-wg="3"><span class="lat-word" data-w="homo" data-l="homo, hominis (m.)" data-d="nom. enk. m." data-s="PV van de zin; subject is de onbekende boodschapper" data-n="de man">homo</span></span>
+<span class="wg" data-wg="4"><span class="lat-word" data-w="dicebat esse" data-l="dicere / esse" data-d="A. ind. imperf. 3 enk. + inf. praes." data-s="PV + ACI-infinitief" data-n="beweerde te zijn">dicebat esse</span>,</span>
+<span class="wg" data-wg="5"><span class="lat-word" data-w="qui" data-l="qui, quae, quod" data-d="nom. enk. m." data-s="inleider van de relatieve bijzin" data-n="die">qui</span></span>
+<span class="wg" data-wg="6"><span class="lat-word" data-w="iubebat" data-l="iubere" data-d="A. ind. imperf. 3 enk." data-s="PV van de relatieve bijzin" data-n="beval">iubebat</span></span>
+<span class="wg" data-wg="7"><span class="lat-word" data-w="me sibi" data-l="ego / sibi" data-d="acc. enk. + dat. enk. reflex." data-s="OND van ACI + ind. obj. van assistere" data-n="mij aan hem">me sibi</span></span>
+</div>
+
+<div class="latin-para tekst-scheiding">
+<span class="wg" data-wg="8"><span class="lat-word" data-w="Assistere" data-l="assistere" data-d="inf. praes." data-s="ACI-infinitief afhankelijk van iubebat" data-n="te verschijnen voor">Assistere</span>?</span>
+<span class="spreker">Panocnus</span>
+<span class="wg" data-wg="9"><span class="lat-word" data-w="Insignem virum" data-l="insignis, -e / vir, viri (m.)" data-d="acc. enk. m. + acc. enk. m." data-s="OND van de impliciete ACI bij versta na dicebat" data-n="een vooraanstaand man">Insignem virum</span></span>
+<span class="wg" data-wg="10"><span class="lat-word" data-w="magnique regis nuncium" data-l="magnus, -a, -um / rex, regis (m.) / nuntius, -ii (m.)" data-d="gen. enk. m. + gen. enk. m. + acc. enk. m." data-s="appositionele uitbreiding bij insignem virum" data-n="en bode van een groot koning">magnique regis nuncium</span>.</span>
+</div>
+
+<!-- vv.500-501 -->
+<div class="latin-para tekst-scheiding">
+<span class="spreker">Hecastus</span>
+<span class="wg" data-wg="11"><span class="lat-word" data-w="Se nobilem" data-l="sui / nobilis, -e" data-d="acc. enk. reflex. + acc. enk. m." data-s="OND + praedicatief attribuut in ACI" data-n="zichzelf als adellijk">Se nobilem</span>,</span>
+<span class="wg" data-wg="12"><span class="lat-word" data-w="se divitem" data-l="sui / dives, divitis" data-d="acc. enk. reflex. + acc. enk. m." data-s="OND + praedicatief attribuut in ACI (herhaling)" data-n="zichzelf als rijk">se divitem</span>,</span>
+<span class="wg" data-wg="13"><span class="lat-word" data-w="se purpuratum aut splendidum" data-l="sui / purpuratus, -a, -um / splendidus, -a, -um" data-d="acc. enk. reflex. + acc. enk. m. + vgw. + acc. enk. m." data-s="OND + praedicatieve attribuutreeks in ACI (anafora)" data-n="zichzelf als purperdragend of glansrijk">se purpuratum aut splendidum</span></span>
+</div>
+
+<div class="latin-para tekst-scheiding">
+<span class="wg" data-wg="14"><span class="lat-word" data-w="Auro exhibebat" data-l="aurum, -i (n.) / exhibere" data-d="abl. enk. n. + A. ind. imperf. 3 enk." data-s="PV + abl. middel: hij deed zich voor als via goud" data-n="stelde hij voor in goud">Auro exhibebat</span></span>
+<span class="wg" data-wg="15"><span class="lat-word" data-w="nuncius" data-l="nuntius, -ii (m.)" data-d="nom. enk. m." data-s="OND van exhibebat" data-n="de boodschapper">nuncius</span>?</span>
+<span class="spreker">Panocnus</span>
+<span class="wg" data-wg="16"><span class="lat-word" data-w="Non admodum" data-l="non / admodum" data-d="bijw. + bijw." data-s="elliptisch antwoord" data-n="Zeker niet">Non admodum</span>.</span>
+<span class="wg" data-wg="17"><span class="lat-word" data-w="Veruntamen" data-l="veruntamen" data-d="bijw." data-s="contrastief — inleider van de tegenwerping" data-n="Maar toch">Veruntamen</span></span>
+</div>
+
+<!-- vv.502-504 -->
+<div class="latin-para tekst-scheiding">
+<span class="wg" data-wg="18"><span class="lat-word" data-w="Ea est viro" data-l="is, ea, id / esse / vir, viri" data-d="nom. enk. f. + A. ind. praes. 3 enk. + dat. enk. m." data-s="PV + dat. van bezit" data-n="die man heeft">Ea est viro</span></span>
+<span class="wg" data-wg="19"><span class="lat-word" data-w="in sermone" data-l="sermo, sermonis (m.)" data-d="praep. + abl. enk. m." data-s="BWB van domein" data-n="in zijn spreken">in sermone</span>,</span>
+<span class="wg" data-wg="20"><span class="lat-word" data-w="vultu" data-l="vultus, -us (m.)" data-d="abl. enk. m." data-s="BWB van middel / domein (gecoördineerd)" data-n="in zijn blik">vultu</span>,</span>
+<span class="wg" data-wg="21"><span class="lat-word" data-w="moribusque authoritas" data-l="mos, moris (m.) / auctoritas, -atis (f.)" data-d="abl. mv. m. + vgw. + nom. enk. f." data-s="OND van est + derde BWB (chiasmus afrond.)" data-n="en in zijn zeden een waardigheid">moribusque authoritas</span>,</span>
+</div>
+
+<div class="latin-para tekst-scheiding">
+<span class="wg" data-wg="22"><span class="lat-word" data-w="Maturitas" data-l="maturitas, -atis (f.)" data-d="nom. enk. f." data-s="tweede OND bij est (reeks met authoritas)" data-n="rijpheid">Maturitas</span>,</span>
+<span class="wg" data-wg="23"><span class="lat-word" data-w="probitasque" data-l="probitas, -atis (f.)" data-d="nom. enk. f. + vgw." data-s="derde OND (reeks)" data-n="en eerlijkheid">probitasque</span>,</span>
+<span class="wg" data-wg="24"><span class="lat-word" data-w="ut" data-l="ut" data-d="vgw." data-s="inleider van een parenthetische concessieve bijzin" data-n="om te zeggen">ut</span></span>
+<span class="wg" data-wg="25"><span class="lat-word" data-w="(absit verbulo indignatio)" data-l="abesse / verbulum, -i (n.) / indignatio, -onis (f.)" data-d="conj. praes. 3 enk. + abl. enk. n. + nom. enk. f." data-s="optieve conj.: parenthesis — moge het woord geen aanstoot geven" data-n="(moge het woordje geen aanstoot geven)">(absit verbulo indignatio)</span></span>
+</div>
+
+<div class="latin-para tekst-scheiding">
+<span class="wg" data-wg="26"><span class="lat-word" data-w="Te rusticum" data-l="tu / rusticus, -a, -um" data-d="acc. enk. + acc. enk. m." data-s="OND + praedicatief attribuut in ACI bij censerem" data-n="jou als boers">Te rusticum</span>,</span>
+<span class="wg" data-wg="27"><span class="lat-word" data-w="te barbarum censerem" data-l="tu / barbarus, -a, -um / censere" data-d="acc. enk. + acc. enk. m. + A. conj. imperf. 1 enk." data-s="OND + praed. attribuut + PV (potentieel): 'ik zou jou... oordelen'" data-n="jou als barbaars zou ik oordelen">te barbarum censerem</span>,</span>
+<span class="wg" data-wg="28"><span class="lat-word" data-w="&amp; hominem sordidum" data-l="homo, hominis (m.) / sordidus, -a, -um" data-d="vgw. + acc. enk. m. + acc. enk. m." data-s="derde OND + praed. att. in ACI (tricolon afrond.)" data-n="en als een ordinair mens">&amp; hominem sordidum</span>.</span>
+</div>
+
+<!-- [vv.505-508 weggelaten] -->
+<div class="latin-para tekst-scheiding">
+<span style="font-family:var(--ft);font-size:.78rem;font-style:italic;color:var(--ink-light);">[vv.505–508 weggelaten]</span>
+</div>
+
+<!-- vv.509-510 -->
+<div class="latin-para tekst-scheiding">
+<span class="spreker">Hecastus</span>
+<span class="wg" data-wg="29"><span class="lat-word" data-w="Pol" data-l="pol" data-d="bijw. (uitroep)" data-s="beklemtonende partikels" data-n="Bij Pollux!">Pol</span></span>
+<span class="wg" data-wg="30"><span class="lat-word" data-w="tam gravem" data-l="tam / gravis, -e" data-d="bijw. + acc. enk. m." data-s="deel van ACI bij credidi" data-n="zo zwaarwichtig">tam gravem</span></span>
+<span class="wg" data-wg="31"><span class="lat-word" data-w="non credidi" data-l="credere" data-d="A. ind. perf. 1 enk." data-s="PV + negatie" data-n="heb ik niet geloofd">non credidi</span>.</span>
+<span class="wg" data-wg="32"><span class="lat-word" data-w="relucet ex facie viri" data-l="relucere / facies, -ei (f.) / vir, viri (m.)" data-d="A. ind. praes. 3 enk. + praep. + abl. enk. f. + gen. enk. m." data-s="PV + BWB van oorsprong" data-n="straalt uit het gelaat van die man">relucet ex facie viri</span></span>
+</div>
+
+<div class="latin-para tekst-scheiding">
+<span class="wg" data-wg="33"><span class="lat-word" data-w="Reverenda morum dignitas" data-l="reverendus, -a, -um / mos, moris (m.) / dignitas, -atis (f.)" data-d="nom. enk. f. + gen. mv. m. + nom. enk. f." data-s="OND van relucet (enjambement over v.509-510)" data-n="een eerbiedwaardige waardigheid van zeden">Reverenda morum dignitas</span>,</span>
+<span class="wg" data-wg="34"><span class="lat-word" data-w="&amp; honore digna sanctitas" data-l="honor, -oris (m.) / dignus, -a, -um / sanctitas, -atis (f.)" data-d="vgw. + abl. enk. m. + nom. enk. f. + nom. enk. f." data-s="gecoördineerd OND bij relucet" data-n="en heiligheid die eer verdient">&amp; honore digna sanctitas</span>.</span>
+</div>
+
+  </div><!-- /plain-view -->
+
+  <div class="numbered-view" id="numberedView">
+    <div class="latin-line"><span class="ln">498</span><span class="lc">QUem sese homo dicebat esse, qui iubebat me sibi</span></div>
+    <div class="latin-line"><span class="ln">499</span><span class="lc">Assistere? — Insignem virum magnique regis nuncium.</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln">500</span><span class="lc">Se nobilem, se divitem, se purpuratum aut splendidum</span></div>
+    <div class="latin-line"><span class="ln">501</span><span class="lc">Auro exhibebat nuncius? — Non admodum. Veruntamen</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln">502</span><span class="lc">Ea est viro in sermone, vultu, moribusque authoritas,</span></div>
+    <div class="latin-line"><span class="ln">503</span><span class="lc">Maturitas, probitasque, ut (absit verbulo indignatio)</span></div>
+    <div class="latin-line"><span class="ln">504</span><span class="lc">Te rusticum, te barbarum censerem, &amp; hominem sordidum.</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln" style="font-style:italic;color:#bbb;">505–508</span><span class="lc" style="font-style:italic;color:#bbb;">[weggelaten]</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln">509</span><span class="lc">Pol tam gravem non credidi. relucet ex facie viri</span></div>
+    <div class="latin-line"><span class="ln"><strong>510</strong></span><span class="lc">Reverenda morum dignitas, &amp; honore digna sanctitas.</span></div>
+  </div>
+  </div><!-- /latin-text -->
+
+  <div class="noten-block" id="notenBlock">
+  <div class="d-badges" id="badges-noten" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">⑦ Scaffolding</span>
+    <span class="d-badge bs" data-layer="bs">⑪ Feedback die denken aanzet</span>
+    <span class="d-badge lpd" data-layer="lpd">WD3_03.01.01 – taalsystematiek</span>
+  </div>
+  <div class="footnotes">
+    <div class="fn-title">Grammaticale noten</div>
+    <div class="fn"><span class="fn-n">1</span><span><em>Quem sese homo dicebat esse</em> — ACI afhankelijk van <em>dicebat</em>: 'wie die man beweerde te zijn dat hij was'. <em>Sese</em> is het reflexieve pronomen als accusatief-OND van de ACI. Let op de gelaagde indirecte vraag: wie + ACI.</span></div>
+    <div class="fn"><span class="fn-n">2</span><span><em>qui iubebat me sibi assistere</em> — relatieve bijzin met ACI: <em>iubere</em> + accusatief (<em>me</em>) + infinitief (<em>assistere</em>). <em>Sibi</em> is reflexief datief: aan zichzelf. Let op de slotvraag van Hecastus — hij betwist de autoriteit van de boodschapper.</span></div>
+    <div class="fn"><span class="fn-n">3</span><span><em>Se nobilem, se divitem, se purpuratum aut splendidum</em> — drievoudige anafora van <em>se</em>: praedicatieve accusa­tieven in een impliciete ACI na <em>exhibebat</em>. Hecastus somt zijn wereldse waarden op: adelstand, rijkdom, purper (= keizerlijk/koninklijk). De reeks toont zijn <em>superbia</em>.</span></div>
+    <div class="fn"><span class="fn-n">4</span><span><em>Auro exhibebat</em> — ablativus instrumenti: de boodschapper stelde zich voor <em>door middel van goud</em>? Neen: <em>Non admodum</em>. De ironie is scherp — de werkelijke autoriteit behoeft geen materieel vertoon.</span></div>
+    <div class="fn"><span class="fn-n">5</span><span><em>absit verbulo indignatio</em> — optieve conjunctief (<em>absit</em>, praes. conj. van <em>abesse</em>): 'moge de verontwaardiging ver zijn van dit kleine woordje'. Een klassiek verontschuldigingsformule voordat iets pijnlijks gezegd wordt. <em>Verbulo</em> is ablativus separationis.</span></div>
+    <div class="fn"><span class="fn-n">6</span><span><em>te rusticum … te barbarum censerem</em> — potentiële conjunctief imperf.: <em>censerem</em> = 'ik zou oordelen'. Geen veroordeling, maar een redenering: als dit de maatstaf zou zijn. Tweede anafora van <em>te</em> — spiegelend aan de <em>se</em>-reeks van Hecastus zelf.</span></div>
+    <div class="fn"><span class="fn-n">7</span><span><em>relucet ex facie viri</em> — <em>relucere</em> (intransitief) + <em>ex</em> + ablativus: 'straalt af van het gelaat'. Het onderwerp volgt pas in v.510 via enjambement: <em>Reverenda morum dignitas</em>. Het enjambement vertraagt en beklemtoont.</span></div>
+    <div class="fn"><span class="fn-n">8</span><span><em>Reverenda morum dignitas &amp; honore digna sanctitas</em> — twee nominativi als OND van <em>relucet</em>. <em>Reverenda</em> (gerundivum van <em>revereri</em>) = 'die ontzag verdient'. <em>Honore digna</em> = 'die eer waard is'. De morele kwaliteiten <em>dignitas</em> en <em>sanctitas</em> staan tegenover de materiële reeks van Hecastus.</span></div>
+  </div>
+  </div><!-- /noten-block -->
+
+  <div class="d-badges" id="badges-wl" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">① Voorkennis activeren</span>
+    <span class="d-badge bs" data-layer="bs">⑧ Gespreide oefening</span>
+    <span class="d-badge lpd" data-layer="lpd">WD3_03.01.01 – basisvocabularium</span>
+    <span class="d-badge lpd" data-layer="lpd">WD3_03.02.02 – betekenis geven aan teksten</span>
+  </div>
+  <div id="woordenlijst-sectie" style="margin-top:3.5rem;padding-top:2rem;border-top:2px solid var(--accent);">
+    <div id="wlSectieLabel" style="font-family:var(--ft);font-size:.68rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem;opacity:.85;">Tekst 6 · Thema Dramatiek · 6de jaar</div>
+    <h2 style="font-family:var(--ft);font-size:1.3rem;font-weight:600;color:var(--deep-forest);margin-bottom:.3rem;" id="wlSectieTitle">Woordenlijst</h2>
+    <p id="wlSectieInfo" style="font-family:var(--ft);font-size:.78rem;color:var(--ink-light);margin-bottom:1.5rem;">Woordenlijst op volgorde van voorkomen. <span style="display:inline-block;font-size:.6rem;font-weight:700;padding:.04rem .3rem;border-radius:8px;background:#fde8e4;color:var(--accent);text-transform:uppercase;vertical-align:middle;">basis</span> = basiswoordenschat.</p>
+    <div id="wlTable"></div>
+  </div>
+
+</div><!-- /main-col -->
+
+<div class="col-resizer" id="colResizer"><div class="col-resizer-handle"></div></div>
+
+<div class="side-panel" id="sidePanel">
+  <div class="analysis-card" id="analysisCard">
+    <div class="ac-empty">Klik op een woord voor grammaticahulp.</div>
+  </div>
+  <div class="panel-card" id="sidePanelVertaling">
+    <h3>Vertaling</h3>
+    <div class="vertaling-tekst" id="vertaalTekst"></div>
+  </div>
+  <div class="panel-card">
+    <h3>Let op</h3>
+    <div class="panel-note"><span class="pn-tag">ACI</span><em>dicebat esse</em> + <em>iubebat assistere</em>: dubbele ACI-constructie in v.498–499.</div>
+    <div class="panel-note"><span class="pn-tag">Anafora</span><em>se … se … se</em> (v.500) én <em>te … te</em> (v.504): materiële vs. morele waarden gespiegeld.</div>
+    <div class="panel-note"><span class="pn-tag">Conj.</span><em>absit</em> (opt. conj.) en <em>censerem</em> (pot. conj. imperf.) — twee verschillende conjunctiefgebruiken.</div>
+    <div class="panel-note"><span class="pn-tag">Gerund.</span><em>Reverenda</em> — gerundivum van <em>revereri</em> als adjectief: 'die ontzag verdient'.</div>
+    <div class="panel-note"><span class="pn-tag">Enjamb.</span><em>relucet</em> (v.509) — het OND <em>dignitas</em> volgt pas in v.510: bewuste vertraging.</div>
+  </div>
+</div>
+
+</div><!-- /outer -->
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4-4 4 4"/></svg>
+</button>
+
+<script>
+var WL = [
+  {g:"homo",a:"hominis (m.)",v:"mens",b:true,t:["6d/th1/6"],volgorde:{"6d/th1/6":1}},
+  {g:"dicere",a:"dico, -ere, dixi, dictum",v:"zeggen, beweren",b:true,t:["6d/th1/6"],volgorde:{"6d/th1/6":2}},
+  {g:"iubere",a:"iubeo, -ere, iussi, iussum",v:"bevelen, opdragen",b:true,t:["6d/th1/6"],volgorde:{"6d/th1/6":3}},
+  {g:"assistere",a:"assisto, -ere, astiti",v:"bijstaan, verschijnen voor",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":4}},
+  {g:"insignis",a:"insignis, -e",v:"vooraanstaand, opmerkelijk",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":5}},
+  {g:"vir",a:"viri (m.)",v:"man",b:true,t:["6d/th1/6"],volgorde:{"6d/th1/6":6}},
+  {g:"rex",a:"regis (m.)",v:"koning",b:true,t:["6d/th1/6"],volgorde:{"6d/th1/6":7}},
+  {g:"nuntius",a:"nuntii (m.)",v:"boodschapper, bode",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":8}},
+  {g:"nobilis",a:"nobilis, -e",v:"adellijk, vooraanstaand",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":9}},
+  {g:"dives",a:"divitis",v:"rijk",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":10}},
+  {g:"aurum",a:"auri (n.)",v:"goud",b:true,t:["6d/th1/6"],volgorde:{"6d/th1/6":11}},
+  {g:"exhibere",a:"exhibeo, -ere, -ui, -itum",v:"tonen, voordoen als",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":12}},
+  {g:"sermo",a:"sermonis (m.)",v:"spreken, rede, omgangswijze",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":13}},
+  {g:"vultus",a:"vultus, -us (m.)",v:"gelaat, uitdrukking",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":14}},
+  {g:"mos",a:"moris (m.)",v:"gebruik, zede; mv.: karakter",b:true,t:["6d/th1/6"],volgorde:{"6d/th1/6":15}},
+  {g:"auctoritas",a:"auctoritatis (f.)",v:"autoriteit, waardigheid, gezag",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":16}},
+  {g:"maturitas",a:"maturitatis (f.)",v:"rijpheid, volwassenheid",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":17}},
+  {g:"probitas",a:"probitatis (f.)",v:"eerlijkheid, rechtschapenheid",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":18}},
+  {g:"abesse",a:"absum, abesse, afui",v:"afwezig zijn, ver zijn van",b:true,t:["6d/th1/6"],volgorde:{"6d/th1/6":19}},
+  {g:"indignatio",a:"indignationis (f.)",v:"verontwaardiging",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":20}},
+  {g:"rusticus",a:"rustica, rusticum",v:"boers, plattelands-",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":21}},
+  {g:"barbarus",a:"barbara, barbarum",v:"barbaars, vreemd",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":22}},
+  {g:"censere",a:"censeo, -ere, censui, censum",v:"oordelen, menen, schatten",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":23}},
+  {g:"sordidus",a:"sordida, sordidum",v:"smerig, ordinair, laag",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":24}},
+  {g:"credere",a:"credo, -ere, credidi, creditum",v:"geloven, vertrouwen",b:true,t:["6d/th1/6"],volgorde:{"6d/th1/6":25}},
+  {g:"relucere",a:"reluceo, -ere",v:"afstralen, weerschijnen",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":26}},
+  {g:"facies",a:"faciei (f.)",v:"gelaat, aanzien",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":27}},
+  {g:"dignitas",a:"dignitatis (f.)",v:"waardigheid",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":28}},
+  {g:"honor",a:"honoris (m.)",v:"eer, eervolle positie",b:true,t:["6d/th1/6"],volgorde:{"6d/th1/6":29}},
+  {g:"sanctitas",a:"sanctitatis (f.)",v:"heiligheid, onberispelijkheid",b:false,t:["6d/th1/6"],volgorde:{"6d/th1/6":30}}
+];
+
+function renderWLData(list) {
+  var el = document.getElementById('wlTable');
+  if (!el) return;
+  var html = '<div style="background:#fff;border:0.5px solid var(--rand);border-radius:12px;overflow:hidden;">';
+  list.forEach(function(w, i) {
+    var isLast = (i === list.length - 1);
+    var borderB = isLast ? '' : 'border-bottom:0.5px solid var(--rand);';
+    var latColor = w.b ? 'var(--accent)' : 'var(--ink)';
+    html += '<div style="display:flex;align-items:center;gap:14px;padding:11px 16px;' + borderB + '">'
+      + '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:12px;color:var(--ink-light);width:28px;flex-shrink:0;text-align:right;">' + (i+1) + '</span>'
+      + '<span style="width:18px;height:18px;border-radius:50%;border:1.5px solid var(--rand);flex-shrink:0;display:inline-block;"></span>'
+      + '<span style="flex:1;min-width:0;">'
+        + '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:14px;font-weight:500;color:' + latColor + ';">' + w.g + '</span>'
+        + (w.a ? '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:12px;color:var(--ink-light);margin-left:.5rem;">' + w.a + '</span>' : '')
+      + '</span>'
+      + '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:13px;color:var(--ink);flex:1.2;text-align:left;">' + w.v + '</span>'
+      + '<span style="font-size:16px;color:#d1d5db;flex-shrink:0;padding:2px 4px;line-height:1;">&#9734;</span>'
+      + '</div>';
+  });
+  html += '</div>';
+  el.innerHTML = html;
+}
+renderWLData(WL);
+
+function lookupWL(lemma) {
+  if (!lemma) return null;
+  var parts = lemma.toLowerCase().split(/[\/,\s]+/);
+  for (var i = 0; i < WL.length; i++) {
+    var g = WL[i].g.toLowerCase();
+    for (var j = 0; j < parts.length; j++) {
+      if (g === parts[j] || g.startsWith(parts[j])) return WL[i];
+    }
+  }
+  return null;
+}
+
+var S = {lines:false, font:false, reveal:false, twocol:false, interlin:false, revIdx:-1};
+var wgroups = Array.from(document.querySelectorAll('.wg'));
+var lastWord = null, clickN = 0;
+
+document.querySelectorAll('.lat-word').forEach(function(w) {
+  w.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (lastWord === w) { clickN++; } else {
+      if (lastWord) lastWord.classList.remove('st1','st2');
+      lastWord = w; clickN = 1;
+    }
+    w.classList.remove('st1','st2');
+    if (clickN === 1) { w.classList.add('st1'); showPopup(w, 1); updatePanel(w); }
+    else if (clickN === 2) { w.classList.add('st2'); showPopup(w, 2); }
+    else { clickN = 0; lastWord = null; hidePopup(); }
+  });
+});
+document.addEventListener('click', function() {
+  if (lastWord) { lastWord.classList.remove('st1','st2'); lastWord = null; clickN = 0; }
+  hidePopup();
+});
+
+var popup = document.getElementById('popup');
+function showPopup(el, click) {
+  var wl = lookupWL(el.dataset.l);
+  document.getElementById('ppWord').textContent = el.dataset.w;
+  document.getElementById('ppLemma').textContent = el.dataset.l || '';
+  var info = click === 1 ? el.dataset.d : el.dataset.s;
+  var tagClass = click === 1 ? 'tg' : 'to';
+  var tagLabel = click === 1 ? 'Det.' : 'Funct.';
+  var html = '<div class="wp-row"><span class="wp-tag ' + tagClass + '">' + tagLabel + '</span><span class="wp-val">' + info + '</span></div>';
+  html += '<div class="wp-row" style="margin-top:.25rem"><span class="wp-tag tp">NL</span><span class="wp-val">' + el.dataset.n + '</span></div>';
+  if (wl) {
+    html += '<hr class="wp-sep">';
+    var isBasis = wl.b;
+    var grondvorm = '<span style="font-family:\'Noto Sans\',Arial,sans-serif;font-size:1rem;font-weight:600;color:' + (isBasis ? 'var(--accent)' : 'var(--deep-forest)') + ';">' + wl.g + '</span>';
+    if (isBasis) grondvorm += ' <span style="display:inline-block;font-size:.55rem;font-weight:700;padding:.03rem .28rem;border-radius:8px;background:#fde8e4;color:var(--accent);text-transform:uppercase;vertical-align:middle;">basis</span>';
+    html += '<div class="wp-row"><span class="wp-tag tw">&#128218;</span><div>' + grondvorm;
+    if (wl.a) html += '<div style="font-size:.66rem;color:var(--ink-light);margin-top:.1rem;">' + wl.a + '</div>';
+    html += '<div style="font-size:.78rem;color:var(--ink-mid);margin-top:.15rem;">' + wl.v + '</div>';
+    html += '</div></div>';
+  }
+  document.getElementById('ppContent').innerHTML = html;
+  document.getElementById('ppSep').style.display = 'none';
+  document.getElementById('ppHint').innerHTML = '';
+  var rect = el.getBoundingClientRect();
+  var top = rect.bottom + window.scrollY + 6;
+  var left = rect.left;
+  if (rect.bottom + 160 > window.innerHeight) top = rect.top + window.scrollY - 170;
+  if (left + 310 > window.innerWidth) left = window.innerWidth - 315;
+  if (left < 8) left = 8;
+  popup.style.top = top + 'px';
+  popup.style.left = left + 'px';
+  popup.classList.add('vis');
+}
+function hidePopup() { popup.classList.remove('vis'); }
+
+function updatePanel(w) {
+  var wl = lookupWL(w.dataset.l);
+  var wlHtml = '';
+  if (wl) {
+    var isBasis = wl.b;
+    var grondvorm = '<span style="font-family:\'Noto Sans\',Arial,sans-serif;font-size:1rem;font-weight:600;color:' + (isBasis ? 'var(--accent)' : 'var(--deep-forest)') + ';">' + wl.g + '</span>';
+    if (isBasis) grondvorm += ' <span style="display:inline-block;font-size:.55rem;font-weight:700;padding:.03rem .28rem;border-radius:8px;background:#fde8e4;color:var(--accent);text-transform:uppercase;vertical-align:middle;">basis</span>';
+    wlHtml = '<div class="ac-row" style="margin-top:.4rem"><span class="ac-tag tw">&#128218;</span><div>' + grondvorm
+      + (wl.a ? '<div style="font-size:.66rem;color:var(--ink-light);margin-top:.1rem;">' + wl.a + '</div>' : '')
+      + '<div style="font-size:.78rem;color:var(--ink-mid);margin-top:.15rem;">' + wl.v + '</div>'
+      + '</div></div>';
+  }
+  document.getElementById('analysisCard').innerHTML =
+    '<div class="ac-word">' + w.dataset.w + '</div>' +
+    '<div class="ac-lemma">' + (w.dataset.l||'') + '</div>' +
+    '<div class="ac-row"><span class="ac-tag tg">Det.</span><span class="ac-val">' + w.dataset.d + '</span></div>' +
+    '<div class="ac-row" style="margin-top:.3rem"><span class="ac-tag to">Funct.</span><span class="ac-val">' + w.dataset.s + '</span></div>' +
+    '<div class="ac-row" style="margin-top:.3rem"><span class="ac-tag tp">NL</span><span class="ac-val">' + w.dataset.n + '</span></div>' +
+    wlHtml;
+}
+
+function toggleReveal() {
+  S.reveal = !S.reveal;
+  document.getElementById('btnReveal').classList.toggle('active', S.reveal);
+  document.getElementById('revealBar').classList.toggle('vis', S.reveal);
+  document.getElementById('latinText').classList.toggle('reveal-mode', S.reveal);
+  if (S.reveal) { S.revIdx = -1; wgroups.forEach(function(g){ g.classList.remove('revealed','current'); }); updCount(); }
+  else { wgroups.forEach(function(g){ g.classList.remove('revealed','current'); }); }
+}
+function revealNext() {
+  if (!S.reveal) return;
+  if (S.revIdx >= 0 && S.revIdx < wgroups.length) wgroups[S.revIdx].classList.remove('current');
+  S.revIdx = Math.min(S.revIdx + 1, wgroups.length - 1);
+  wgroups[S.revIdx].classList.add('revealed','current');
+  wgroups[S.revIdx].scrollIntoView({behavior:'smooth', block:'nearest'});
+  updCount();
+}
+function revealPrev() {
+  if (!S.reveal) return;
+  if (S.revIdx >= 0) {
+    wgroups[S.revIdx].classList.remove('current','revealed');
+    S.revIdx = Math.max(S.revIdx - 1, -1);
+    if (S.revIdx >= 0) wgroups[S.revIdx].classList.add('current');
+  }
+  updCount();
+}
+function revealAll() {
+  wgroups.forEach(function(g){ g.classList.add('revealed'); g.classList.remove('current'); });
+  S.revIdx = wgroups.length - 1;
+  updCount();
+}
+function updCount() {
+  var done = document.querySelectorAll('.wg.revealed').length;
+  document.getElementById('revCount').textContent = done + ' / ' + wgroups.length;
+}
+function toggleInterlin() {
+  S.interlin = !S.interlin;
+  document.getElementById('btnInterlin').classList.toggle('active', S.interlin);
+  document.body.classList.toggle('interlin', S.interlin);
+  if (S.interlin) {
+    document.querySelectorAll('#plainView .lat-word').forEach(function(w) {
+      if (!w.querySelector('.iln')) {
+        var sp = document.createElement('span'); sp.className = 'iln'; sp.textContent = w.dataset.n; w.appendChild(sp);
+      }
+    });
+  } else {
+    document.querySelectorAll('#plainView .lat-word').forEach(function(w) {
+      var iln = w.querySelector('.iln'); if (iln) iln.remove(); w.style.display = '';
+    });
+  }
+}
+function toggleTwocol() {
+  S.twocol = !S.twocol;
+  var btn = document.getElementById('btnTwocol');
+  if (btn) btn.classList.toggle('active', S.twocol);
+  document.body.classList.toggle('twocol', S.twocol);
+  if (S.twocol) renderVertaling();
+}
+function renderVertaling() {
+  var el = document.getElementById('vertaalTekst');
+  if (!el) return;
+  el.innerHTML = '<p>Wie beweerde die man te zijn, die mij opdroeg voor hem te verschijnen? — Een vooraanstaand man en bode van een groot koning.</p><p>Stelde de boodschapper zich voor als adellijk, als rijk, als purperdragend of als glansrijk door goud? — Zeker niet. Maar toch:</p><p>die man heeft in zijn spreken, zijn blik en zijn zeden een autoriteit, rijpheid en eerlijkheid — om het woordje maar te gebruiken zonder aanstoot te wekken: jou zou ik oordelen als boers, als barbaars, en als een ordinair mens.</p><p>Bij Pollux, zo zwaarwichtig had ik hem niet gedacht. Uit het gelaat van die man straalt een eerbiedwaardige waardigheid van zeden en een heiligheid die eer verdient.</p>';
+}
+function toggleFont() {
+  S.font = !S.font;
+  document.getElementById('btnFont').classList.toggle('active', S.font);
+  document.body.classList.toggle('font-lg', S.font);
+}
+var D = { bs: false, lpd: false };
+function toggleLayer(layer) {
+  D[layer] = !D[layer];
+  var btnId = layer === 'bs' ? 'btnBs' : 'btnLpd';
+  var btn = document.getElementById(btnId);
+  if (btn) btn.classList.toggle('active', D[layer]);
+  document.querySelectorAll('.d-badge[data-layer="' + layer + '"]').forEach(function(b) {
+    b.classList.toggle('vis', D[layer]);
+  });
+}
+function toggleNoten() {
+  var blk = document.getElementById('notenBlock');
+  var btn = document.getElementById('btnNoten');
+  if (!blk) return;
+  var open = blk.classList.toggle('vis');
+  if (btn) btn.classList.toggle('active', open);
+  if (open) blk.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* Badge tooltips */
+(function annotateBadges(){
+  var TIPS = {
+    'badges-context|① Voorkennis activeren': '① Voorkennis activeren: de context legt het Everyman-motief en de contemptus mundi-thematiek uit, die leerlingen nodig hebben om Panocnus zijn morele oordeel te begrijpen.',
+    'badges-context|WD3_03.03.01 – situeren in tijd & ruimte': 'WD3_03.03.01 situeren in tijd & ruimte: Hecastus is een neolatijns 16e-eeuws spel — de tekst situeert zich buiten de klassieke oudheid en vraagt inzicht in de literaire receptie.',
+    'badges-kaart|④ Dual coding': '④ Dual coding: een beeld bij de scène verankert het dramatische confrontatiemoment tussen Hecastus en de doodsboodschapper visueel.',
+    'badges-kaart|WD3_03.03.01 – situeren in tijd & ruimte': 'WD3_03.03.01 situeren in tijd & ruimte: de Everyman-traditie is pan-Europees — een kaart of beeld van de receptiegeschiedenis plaatst de tekst in zijn culturele context.',
+    'badges-reveal|⑤ Actieve verwerking': '⑤ Actieve verwerking: de wisselende redevoering (Hecastus vs. Panocnus) vraagt dat leerlingen per woordgroep de spreker én de syntactische structuur (ACI, anafora, conj.) identificeren.',
+    'badges-reveal|⑦ Scaffolding': '⑦ Scaffolding: de complexe ACI-ketens en de potentiële conjunctief in v.504 vereisen stapsgewijze onthulling om de syntactische gelaagdheid zichtbaar te maken.',
+    'badges-reveal|WD3_03.02.01.01 – lectuurmethode toepassen': 'WD3_03.02.01.01 lectuurmethode toepassen: lineair lezen per kolon maakt de spiegeling van se-reeks (v.500) en te-reeks (v.504) als retorische structuur tastbaar.',
+    'badges-reveal|WD3_03.02.01 – tekst begrijpen': 'WD3_03.02.01 tekst begrijpen: de passage vereist dat leerlingen de ACI bij dicebat/iubebat, de optieve conjunctief en het enjambement in v.509–510 lokaliseren.',
+    'badges-noten|⑦ Scaffolding': '⑦ Scaffolding: de noten lichten de dubbele ACI, de anafora van se/te, het gerundivum reverenda en de potentiële conjunctief censerem toe.',
+    'badges-noten|⑪ Feedback die denken aanzet': '⑪ Feedback die denken aanzet: noot 4 (Non admodum) en noot 8 (dignitas vs. materieel) nodigen uit om de morele tegensteliing — auctoritas vs. aurum — te interpreteren.',
+    'badges-noten|WD3_03.01.01 – taalsystematiek': 'WD3_03.01.01 taalsystematiek: ACI bij iubere/dicere, optieve/potentiële conjunctief, gerundivum als adjectief en enjambement zijn kernpunten van de morfosyntactische analyse.',
+    'badges-wl|① Voorkennis activeren': '① Voorkennis activeren: basiswoorden als homo, vir, rex, credere en honor activeren bekende vocabulaire uit de tweede graad in een nieuwe dramatische context.',
+    'badges-wl|⑧ Gespreide oefening': '⑧ Gespreide oefening: dignitas, auctoritas en mores keren terug in filosofische en retorische teksten van het 6de jaar en worden zo herhaald.',
+    'badges-wl|WD3_03.01.01 – basisvocabularium': 'WD3_03.01.01 basisvocabularium: 8 van de 30 woorden behoren tot de basiswoordenschat — de rest zijn tekstspecifieke woorden uit het moraaldrama-register.',
+    'badges-wl|WD3_03.02.02 – betekenis geven aan teksten': 'WD3_03.02.02 betekenis geven aan teksten: rusticus, barbarus en sordidus zijn sociale oordelen — hun betekenis vereist culturele en stilistische interpretatie.'
+  };
+  var tip = document.createElement('div');
+  tip.className = 'd-tooltip';
+  document.body.appendChild(tip);
+  function show(badge, text) {
+    tip.textContent = text; tip.classList.add('vis');
+    var r = badge.getBoundingClientRect();
+    var tw = tip.offsetWidth, th = tip.offsetHeight;
+    var left = r.left + r.width/2 - tw/2;
+    left = Math.max(8, Math.min(window.innerWidth - tw - 8, left));
+    var top = r.top - th - 10;
+    if (top < 8) top = r.bottom + 10;
+    tip.style.left = left + 'px'; tip.style.top = top + 'px';
+  }
+  function hide() { tip.classList.remove('vis'); }
+  document.querySelectorAll('.d-badges').forEach(function(container){
+    var pid = container.id; if (!pid) return;
+    container.querySelectorAll('.d-badge').forEach(function(b){
+      var key = pid + '|' + b.textContent.trim();
+      var text = TIPS[key]; if (!text) return;
+      b.addEventListener('mouseenter', function(){ show(b, text); });
+      b.addEventListener('mouseleave', hide);
+    });
+  });
+})();
+
+function toggleWeergaveMenu(e) {
+  e.stopPropagation();
+  var menu = document.getElementById('weergaveMenu');
+  var btn  = document.getElementById('btnWeergave');
+  var open = menu.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+document.addEventListener('click', function(e) {
+  var menu = document.getElementById('weergaveMenu');
+  var btn  = document.getElementById('btnWeergave');
+  if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.classList.remove('open'); btn.classList.remove('open');
+  }
+});
+
+window.addEventListener('scroll', function() {
+  document.getElementById('scrollTop').classList.toggle('on', document.documentElement.scrollTop > 280);
+});
+
+(function(){
+  var resizer = document.getElementById('colResizer');
+  if (!resizer) return;
+  var outer = resizer.closest('.outer');
+  var dragging = false, startX, startPct;
+  function getPct() {
+    var val = getComputedStyle(document.documentElement).getPropertyValue('--col-split') || '60%';
+    return parseFloat(val);
+  }
+  resizer.addEventListener('mousedown', function(e) {
+    dragging = true; startX = e.clientX; startPct = getPct();
+    resizer.classList.add('dragging'); document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none'; e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e) {
+    if (!dragging) return;
+    var outerW = outer.getBoundingClientRect().width;
+    var delta = e.clientX - startX;
+    var newPct = Math.min(80, Math.max(30, startPct + (delta / outerW) * 100));
+    document.documentElement.style.setProperty('--col-split', newPct.toFixed(1) + '%');
+  });
+  document.addEventListener('mouseup', function() {
+    if (!dragging) return;
+    dragging = false; resizer.classList.remove('dragging');
+    document.body.style.cursor = ''; document.body.style.userSelect = '';
+  });
+})();
+</script>
+</body>
+</html>
