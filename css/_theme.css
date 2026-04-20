@@ -7,7 +7,6 @@
    FONT-FACE DEFINITIONS
    ========================================= */
 
-/* NOTO SANS - Google Fonts */
 @font-face {
   font-family: 'Noto Sans';
   src: url('../fonts/noto-sans/NotoSans-Regular.woff2') format('woff2');
@@ -22,7 +21,6 @@
   font-style: normal;
 }
 
-/* FLANDERS ART SANS - Groenhove */
 @font-face {
   font-family: 'Flanders Art Sans';
   src: url('../fonts/flanders-art-sans/FlandersArtSans-Bold.otf') format('opentype');
@@ -31,50 +29,84 @@
 }
 
 /* =========================================
-   ROOT VARIABLES - CSS Custom Properties
+   ROOT VARIABLES
    ========================================= */
 
 :root {
   /* FONTS */
   --font-title: 'Flanders Art Sans', 'Arial Black', sans-serif;
-  --font-body: 'Noto Sans', 'Arial', sans-serif;
-  
-  /* GROENHOVE KLEUREN */
-  --color-primary-3d: #006633;        /* Deep Forest (3de jaar) */
-  --color-primary-4d: #65b32e;        /* Vital Green (4de jaar) */
-  --color-accent: #FF3B1D;            /* Waregem Pulse Red */
-  --color-yellow: #ffea3d;            /* Balanced Yellow */
-  
-  /* NEUTRAL */
-  --color-text: #333;
-  --color-text-light: #666;
-  --color-text-lighter: #999;
-  --color-bg: #f8f8f8;
-  --color-white: #ffffff;
-  --color-border: #e0e0e0;
-  
-  /* SPACING */
+  --font-body:  'Noto Sans', 'Arial', sans-serif;
+
+  /* ── GROENHOVE BASISKLEUREN ── */
+  --color-deep-forest:  #006633;   /* Deep Forest — donkergroen */
+  --color-vital-green:  #65b32e;   /* Vital Green  — heldergroen */
+  --color-yellow:       #ffea3d;   /* Balanced Yellow */
+  --color-accent:       #FF3B1D;   /* Waregem Pulse Red */
+
+  /* Aliassen voor 3e/4e jaar (tweede graad) */
+  --color-primary-3d: var(--color-deep-forest);
+  --color-primary-4d: var(--color-vital-green);
+
+  /* Jaar-kleuren derde graad */
+  --color-5d: #FF3B1D;   /* Waregem Pulse Red — 5de jaar */
+  --color-6d: #ffea3d;   /* Balanced Yellow   — 6de jaar */
+
+  /* ── NEUTRALE KLEUREN ── */
+  --color-text:         #010100;   /* Projectzwart */
+  --color-text-soft:    #4a5e45;   /* Donker bosgoen — leesbaar op lichtgroene achtergrond */
+  --color-text-card:    #444444;   /* Leesbaar op witte kaartachtergrond */
+  --color-text-light:   #666666;
+  --color-text-lighter: #999999;
+  --color-bg:           #f3f1ef;   /* Projectwit */
+  --color-white:        #ffffff;
+  --color-border:       #e0e0e0;
+
+  /* ── ACHTERGRONDEN PER JAAR ── */
+  --bg-3d: #e0efd5;   /* Lichtgroen — 3de jaar */
+  --bg-4d: #e8f5d6;   /* Lichtgroen variant — 4de jaar */
+  --bg-6d: #e0efd5;   /* Zelfde lichtgroen — 6de jaar (geel als accent) */
+
+  /* ── ICOON-CHIPS (zachte pastel + leesbare icoonkleur) ──
+     Principe: nooit geel (#ffea3d) als icoonkleur op lichte achtergrond.
+     Gebruik donkere varianten van de merkkleuren als icoonkleur.        */
+  --chip-geel-bg:      #fef6be;   /* Zachte gele chip */
+  --chip-geel-icon:    #7a6800;   /* Donker okergeel — contrast 7:1 op chip-bg */
+  --chip-groen-bg:     #d6eedd;   /* Zachte groene chip */
+  --chip-groen-icon:   #006633;   /* Deep Forest — contrast 6.5:1 op chip-bg */
+  --chip-rood-bg:      #fde8e4;   /* Zachte rode chip */
+  --chip-rood-icon:    #b02a13;   /* Donker rood — contrast 5.5:1 op chip-bg */
+  --chip-blauw-bg:     #e6f0fb;   /* Zachte blauwe chip */
+  --chip-blauw-icon:   #13427f;   /* Donker blauw — contrast 7:1 op chip-bg */
+
+  /* ── GEEL OP LICHTGROENE ACHTERGROND ──
+     #ffea3d heeft te weinig contrast op #e0efd5 (ratio ~1.3:1).
+     Oplossing A (titels/hero): text-shadow voor diepte, kleur ongewijzigd.
+     Oplossing B (kaarttitels): Deep Forest tekst + gele border-left accentbalk.
+     Oplossing C (body): nooit geel als lopende tekst — gebruik --color-text-soft. */
+  --yellow-text-shadow: 0 1px 4px rgba(0,0,0,0.22);
+
+  /* ── SPACING ── */
   --space-1: 0.5rem;
   --space-2: 1rem;
   --space-3: 1.5rem;
   --space-4: 2rem;
   --space-5: 2.5rem;
   --space-6: 3rem;
-  
-  /* LAYOUT */
-  --card-radius: 0.75rem;
+
+  /* ── LAYOUT ── */
+  --card-radius:   0.75rem;
   --button-radius: 0.5rem;
-  
-  /* Z-INDEX */
-  --z-base: 1;
+
+  /* ── Z-INDEX ── */
+  --z-base:    1;
   --z-elevated: 10;
-  --z-modal: 100;
+  --z-modal:   100;
   --z-tooltip: 1000;
-  
-  /* TRANSITIONS */
-  --transition-fast: 0.2s ease;
+
+  /* ── TRANSITIONS ── */
+  --transition-fast:   0.2s ease;
   --transition-normal: 0.3s ease;
-  --transition-slow: 0.5s ease;
+  --transition-slow:   0.5s ease;
 }
 
 /* =========================================
@@ -85,7 +117,7 @@ h1, h2, h3, h4, h5, h6,
 .title, .heading {
   font-family: var(--font-title);
   font-weight: 700;
-  color: var(--color-primary-3d);
+  color: var(--color-deep-forest);
 }
 
 body, p, .text, .body-text {
@@ -102,24 +134,69 @@ strong, .bold, b {
    COLOR UTILITIES
    ========================================= */
 
-.text-primary-3d { color: var(--color-primary-3d); }
-.text-primary-4d { color: var(--color-primary-4d); }
-.text-accent { color: var(--color-accent); }
-.text-yellow { color: var(--color-yellow); }
-.text-light { color: var(--color-text-light); }
+.text-deep-forest  { color: var(--color-deep-forest); }
+.text-vital-green  { color: var(--color-vital-green); }
+.text-accent       { color: var(--color-accent); }
+.text-yellow       { color: var(--color-yellow); }
+.text-soft         { color: var(--color-text-soft); }   /* op lichtgroene achtergrond */
+.text-light        { color: var(--color-text-light); }
 
-.bg-primary-3d { background-color: var(--color-primary-3d); }
-.bg-primary-4d { background-color: var(--color-primary-4d); }
-.bg-accent { background-color: var(--color-accent); }
-.bg-yellow { background-color: var(--color-yellow); }
-.bg-light { background-color: var(--color-bg); }
+/* Legacy aliassen (tweede graad) */
+.text-primary-3d   { color: var(--color-primary-3d); }
+.text-primary-4d   { color: var(--color-primary-4d); }
+
+.bg-deep-forest    { background-color: var(--color-deep-forest); }
+.bg-vital-green    { background-color: var(--color-vital-green); }
+.bg-accent         { background-color: var(--color-accent); }
+.bg-yellow         { background-color: var(--color-yellow); }
+.bg-light          { background-color: var(--color-bg); }
+
+/* Legacy aliassen */
+.bg-primary-3d     { background-color: var(--color-primary-3d); }
+.bg-primary-4d     { background-color: var(--color-primary-4d); }
+
+/* =========================================
+   ICOON-CHIPS
+   Gebruik: <div class="nav-tegel-icoon chip-geel"> … svg … </div>
+   ========================================= */
+
+.chip-geel  { background: var(--chip-geel-bg);  color: var(--chip-geel-icon); }
+.chip-groen { background: var(--chip-groen-bg); color: var(--chip-groen-icon); }
+.chip-rood  { background: var(--chip-rood-bg);  color: var(--chip-rood-icon); }
+.chip-blauw { background: var(--chip-blauw-bg); color: var(--chip-blauw-icon); }
+
+/* =========================================
+   KAARTTITEL MET GELE ACCENTBALK
+   Geel zichtbaar als accent zonder leesbaarheidscrisis.
+   Gebruik: <div class="card-title"> … </div>
+   ========================================= */
+
+.card-title {
+  font-family: var(--font-title);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-deep-forest);
+  border-left: 3px solid var(--color-yellow);
+  padding-left: 8px;
+}
+
+/* =========================================
+   HERO-TITEL MET GEEL
+   Geel op lichtgroene achtergrond vereist text-shadow.
+   Gebruik: <span class="hero-yellow"> … </span>
+   ========================================= */
+
+.hero-yellow {
+  color: var(--color-yellow);
+  text-shadow: var(--yellow-text-shadow);
+}
 
 /* =========================================
    BUTTON STYLING
    ========================================= */
 
 .btn-primary-3d {
-  background-color: var(--color-primary-3d);
+  background-color: var(--color-deep-forest);
   color: white;
   padding: var(--space-2) var(--space-3);
   border-radius: var(--button-radius);
@@ -133,11 +210,11 @@ strong, .bold, b {
 .btn-primary-3d:hover {
   background-color: #004d26;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 102, 51, 0.3);
+  box-shadow: 0 4px 12px rgba(0,102,51,0.3);
 }
 
 .btn-primary-4d {
-  background-color: var(--color-primary-4d);
+  background-color: var(--color-vital-green);
   color: white;
   padding: var(--space-2) var(--space-3);
   border-radius: var(--button-radius);
@@ -151,7 +228,7 @@ strong, .bold, b {
 .btn-primary-4d:hover {
   background-color: #5a9d28;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(101, 179, 46, 0.3);
+  box-shadow: 0 4px 12px rgba(101,179,46,0.3);
 }
 
 .btn-accent {
@@ -169,7 +246,7 @@ strong, .bold, b {
 .btn-accent:hover {
   background-color: #e63010;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 59, 29, 0.3);
+  box-shadow: 0 4px 12px rgba(255,59,29,0.3);
 }
 
 /* =========================================
@@ -180,18 +257,18 @@ strong, .bold, b {
   background: white;
   border-radius: var(--card-radius);
   padding: var(--space-3);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   transition: var(--transition-normal);
 }
 
 .card:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
   transform: translateY(-4px);
 }
 
 .card h3 {
   margin-top: 0;
-  color: var(--color-primary-3d);
+  color: var(--color-deep-forest);
 }
 
 /* =========================================
@@ -205,7 +282,7 @@ strong, .bold, b {
     --space-3: 1rem;
     --space-4: 1.5rem;
   }
-  
+
   h1 { font-size: 1.75rem; }
   h2 { font-size: 1.5rem; }
   h3 { font-size: 1.25rem; }
