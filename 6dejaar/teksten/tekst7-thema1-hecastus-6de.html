@@ -342,20 +342,27 @@ body.twocol .col-resizer { display: flex; }
 </head>
 <body>
 
+<div class="word-popup" id="popup">
+  <div class="wp-word" id="ppWord"></div>
+  <div class="wp-lemma" id="ppLemma"></div>
+  <div id="ppContent"></div>
+  <hr class="wp-sep" id="ppSep" style="display:none">
+  <div class="wp-hint" id="ppHint"></div>
+</div>
+
+<!-- ══ MERKLINT: geel + rood logo + rode tekst ══ -->
 <header class="site-header">
-  <img src="../../images/logo-groenhove.png" alt="Groenhove" class="logo">
-  <h1>Latijn · 6de jaar</h1>
-  <span class="sub">Groenhove · Thema Dramatiek</span>
+  <img class="logo" src="../../images/nav/logo_rood.svg" alt="Groenhove">
+  <h1>Teksten</h1>
+  <span class="sub">Latijn 6de jaar</span>
 </header>
 
 <div class="site-toolbar">
   <div class="toolbar-left">
-    <a class="back-btn" href="javascript:history.back()">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4l-4 4 4 4"/></svg>
-      Terug
-    </a>
-    <div class="topbar-divider"></div>
-    <span class="topbar-label">Thema 1 · Tekst 7 · 6de jaar</span>
+    <button class="back-btn" onclick="history.back()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
+      Teksten
+    </button>
   </div>
   <div class="toolbar-right">
     <button class="ctrl-btn" id="btnReveal" onclick="toggleReveal()">
@@ -722,14 +729,6 @@ body.twocol .col-resizer { display: flex; }
     <div class="poetry-modal-body" id="lectuurModalBody">
     </div>
   </div>
-</div>
-
-<div class="word-popup" id="popup">
-  <div class="wp-word" id="ppWord"></div>
-  <div class="wp-lemma" id="ppLemma"></div>
-  <div id="ppContent"></div>
-  <hr class="wp-sep" id="ppSep">
-  <div class="wp-hint" id="ppHint"></div>
 </div>
 
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
