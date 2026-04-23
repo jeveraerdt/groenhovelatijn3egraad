@@ -485,90 +485,107 @@ body.interlin-analysis .lat-surface { display: inline-block; }
 /* Toolbar en kleurpaletten */
 .lesson-toolbar-wrap {
   position: fixed;
-  top: 140px;
+  top: 168px;
   left: var(--toolbar-offset-left);
   z-index: 700;
   opacity: 0;
   pointer-events: none;
   transition: opacity .22s ease, transform .22s ease;
-  transform: translateY(8px);
+  transform: translateY(10px);
 }
+
 body.show-lesson-toolbar .lesson-toolbar-wrap {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
 }
+
 .lesson-toolbar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: .42rem;
-  background: var(--deep-forest);
-  border: 1px solid rgba(255,255,255,.10);
+  gap: .28rem;
+  background: linear-gradient(180deg, #006633 0%, #00552b 100%);
+  border: 1px solid rgba(255,255,255,.08);
   border-radius: 18px;
-  padding: .55rem .42rem;
-  box-shadow: 0 12px 30px rgba(0,0,0,.22);
+  padding: .38rem;
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.20),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
+  scrollbar-width: none;
 }
+
+.lesson-toolbar::-webkit-scrollbar {
+  display: none;
+}
+
 .lesson-toolbar-group {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: .36rem;
+  gap: .28rem;
 }
+
 .lesson-toolbar-divider {
-  width: 26px;
+  width: 18px;
   height: 1px;
-  background: rgba(255,255,255,.14);
+  background: rgba(255,255,255,.12);
+  margin: .08rem 0;
 }
+
 .lesson-btn {
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   font-family: var(--fb);
-  font-size: .82rem;
+  font-size: .78rem;
   color: #fff;
-  background: var(--deep-forest-dark);
-  border: 1px solid rgba(255,255,255,.10);
-  border-radius: 12px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 11px;
   padding: 0;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background .15s, border-color .15s, color .15s, transform .12s;
+  transition: background .15s, border-color .15s, color .15s, transform .12s, box-shadow .12s;
 }
+
 .lesson-btn:hover {
-  background: var(--accent);
-  color: #fff;
-  border-color: var(--accent);
+  background: rgba(255,255,255,.12);
+  border-color: rgba(255,255,255,.14);
   transform: translateY(-1px);
 }
+
 .lesson-btn.active {
-  background: var(--jaar-kleur);
-  color: var(--deep-forest);
-  border-color: var(--jaar-kleur);
+  background: #ffea3d;
+  color: #006633;
+  border-color: #ffea3d;
+  box-shadow: 0 0 0 2px rgba(255,234,61,.16);
 }
+
+.lesson-btn.danger:hover {
+  background: #FF3B1D;
+  border-color: #FF3B1D;
+  color: #fff;
+}
+
 .lesson-btn svg {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   stroke: currentColor;
 }
+
 .lesson-status {
-  font-family: var(--ft);
-  font-size: .58rem;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.78);
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  margin-top: .1rem;
-  user-select: none;
+  display: none;
 }
 
 .tool-palette {
   position: absolute;
   left: calc(100% + 10px);
   display: none;
-  grid-template-columns: repeat(2, 18px);
+  grid-template-columns: repeat(3, 18px);
   gap: 8px;
   padding: 8px;
   background: #ffffff;
@@ -576,9 +593,18 @@ body.show-lesson-toolbar .lesson-toolbar-wrap {
   border-radius: 12px;
   box-shadow: 0 10px 26px rgba(0,0,0,.15);
 }
-.tool-palette.open { display: grid; }
-#penPalette { top: 255px; }
-#highlightPalette { top: 303px; }
+
+.tool-palette.open {
+  display: grid;
+}
+
+#penPalette {
+  top: 208px;
+}
+
+#highlightPalette {
+  top: 250px;
+}
 
 .swatch {
   width: 18px;
@@ -588,10 +614,58 @@ body.show-lesson-toolbar .lesson-toolbar-wrap {
   cursor: pointer;
   transition: transform .12s, border-color .12s, box-shadow .12s;
 }
-.swatch:hover { transform: scale(1.08); }
+
+.swatch:hover {
+  transform: scale(1.08);
+}
+
 .swatch.active {
   border-color: #111;
   box-shadow: 0 0 0 2px rgba(0,0,0,.08);
+}
+
+@media (max-width: 1100px) {
+  .lesson-toolbar-wrap {
+    left: 12px;
+  }
+}
+
+@media (max-width: 900px) {
+  .lesson-toolbar-wrap {
+    top: auto;
+    bottom: .75rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+  }
+
+  body.show-lesson-toolbar .lesson-toolbar-wrap {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .lesson-toolbar {
+    flex-direction: row;
+    max-height: none;
+    overflow: visible;
+    padding: .45rem;
+    gap: .35rem;
+  }
+
+  .lesson-toolbar-group {
+    flex-direction: row;
+  }
+
+  .lesson-toolbar-divider {
+    width: 1px;
+    height: 18px;
+    margin: 0 .1rem;
+  }
+
+  .tool-palette {
+    left: 50%;
+    transform: translateX(-50%);
+    top: auto !important;
+    bottom: calc(100% + 10px);
+  }
 }
 
 /* Annotatielaag */
@@ -769,6 +843,7 @@ body.ink-on { cursor: crosshair; }
       <span class="d-badge lpd" data-layer="lpd">WD3_03.01.01 – taalsystematiek</span>
     </div>
 
+    <div id="textStartSentinel" aria-hidden="true" style="height:1px;"></div>
     <div class="latin-text" id="latinText">
       <div class="plain-view" id="plainView">
 
@@ -1047,10 +1122,10 @@ body.ink-on { cursor: crosshair; }
       <button class="lesson-btn" type="button" onclick="focusNextWord()" title="Volgend woord" aria-label="Volgend woord">
         <svg viewBox="0 0 16 16" fill="none" stroke-width="2"><path d="M6.5 4l4 4-4 4"/></svg>
       </button>
-      <button class="lesson-btn" type="button" onclick="clearCurrentWgAnalysis()" title="Wis huidige woordgroep" aria-label="Wis huidige woordgroep">
+      <button class="lesson-btn danger" type="button" onclick="clearCurrentWgAnalysis()" title="Wis huidige woordgroep" aria-label="Wis huidige woordgroep">
         <svg viewBox="0 0 16 16" fill="none" stroke-width="1.7"><path d="M3 4h10M6 4V3h4v1M5 6v6M8 6v6M11 6v6M4 4l.5 9h7L12 4"/></svg>
       </button>
-      <button class="lesson-btn" type="button" onclick="clearAllAnalysis()" title="Wis alle analyse" aria-label="Wis alle analyse">
+      <button class="lesson-btn danger" type="button" onclick="clearAllAnalysis()" title="Wis alle analyse" aria-label="Wis alle analyse">
         <svg viewBox="0 0 16 16" fill="none" stroke-width="1.7"><path d="M3 4h10M6 4V3h4v1M4 4l.5 9h7L12 4"/><path d="M5 11l6-6M11 11L5 5"/></svg>
       </button>
     </div>
@@ -1576,25 +1651,22 @@ window.addEventListener('scroll', function() {
 
 /* Toolbar pas tonen vanaf tekstbegin / onder context */
 (function setupToolbarReveal() {
-  var sentinel = document.getElementById('toolbarSentinel');
-  if (!sentinel || !('IntersectionObserver' in window)) {
+  var sentinel = document.getElementById('textStartSentinel');
+  if (!sentinel) {
     document.body.classList.add('show-lesson-toolbar');
     return;
   }
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting || entry.boundingClientRect.top < 0) {
-        document.body.classList.add('show-lesson-toolbar');
-      } else {
-        document.body.classList.remove('show-lesson-toolbar');
-      }
-    });
-  }, {
-    root: null,
-    threshold: 0,
-    rootMargin: '-80px 0px 0px 0px'
-  });
-  observer.observe(sentinel);
+
+  function updateToolbarVisibility() {
+    var rect = sentinel.getBoundingClientRect();
+    var trigger = 170; 
+    var show = rect.top <= trigger;
+    document.body.classList.toggle('show-lesson-toolbar', show);
+  }
+
+  updateToolbarVisibility();
+  window.addEventListener('scroll', updateToolbarVisibility, { passive: true });
+  window.addEventListener('resize', updateToolbarVisibility);
 })();
 
 function clearCurrentWgAnalysis() {
