@@ -185,9 +185,6 @@ body.font-lg .latin-text { --fs: 1.35rem; --lh: 2.45; }
 .lat-word.st1 { background: var(--green-bg); color: var(--green); border-bottom: 1.5px solid var(--green); }
 .lat-word.st2 { background: var(--orange-bg); color: var(--orange); border-bottom: 1.5px solid var(--orange); }
 
-body.interlin .lat-word { display: inline-flex; flex-direction: column; align-items: center; vertical-align: bottom; margin: 0 1px; }
-body.interlin .lat-word .iln { display: block; font-family: var(--ft); font-size: .52em; color: var(--accent); line-height: 1.1; text-align: center; pointer-events: none; white-space: nowrap; }
-
 .latin-para.tekst-scheiding { border-top: none; margin-top: .2em; padding-top: 0; }
 /* Weggelaten-nota stijl */
 .weggelaten-nota {
@@ -305,7 +302,6 @@ body.twocol .col-resizer { display: flex; }
 }
 .la-antwoord-btn:hover { opacity: 1; background: var(--blue); color: #fff; }
 .la-antwoord-btn svg { width: 11px; height: 11px; flex-shrink: 0; transition: transform .2s; }
-.la-antwoord-btn.open svg { transform: rotate(180deg); }
 .la-antwoord {
   display: none; margin-top: .55rem; padding: .7rem 1rem;
   background: #f0fdf4; border-left: 3px solid var(--blue);
@@ -338,6 +334,194 @@ body.twocol .col-resizer { display: flex; }
 .la-reminder.vis { display: flex; }
 .la-reminder-text { color: var(--ink-mid); }
 .la-reminder-link { color: var(--accent); font-weight: 700; }
+
+/* ─── Interlineaire analyse in de tekst ─── */
+body.interlin-analysis .lat-word {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: bottom;
+  margin: 0 2px;
+  padding: 0 1px;
+}
+
+.inline-analysis {
+  display: none;
+}
+
+body.interlin-analysis .inline-analysis {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  margin-bottom: .14rem;
+  min-height: 0;
+}
+
+.lat-surface {
+  display: inline;
+}
+
+body.interlin-analysis .lat-surface {
+  display: inline-block;
+}
+
+.ia-line {
+  display: block;
+  font-family: var(--ft);
+  line-height: 1.05;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ia-lemma {
+  font-size: .53em;
+  color: var(--accent);
+}
+
+.ia-meaning {
+  font-size: .5em;
+  color: var(--ink-light);
+}
+
+.ia-det {
+  font-size: .49em;
+  color: var(--deep-forest);
+}
+
+.ia-func {
+  font-size: .49em;
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.lat-word.has-analysis .lat-surface {
+  border-radius: 3px;
+}
+
+.lat-word.stage-1 .lat-surface {
+  box-shadow: inset 0 -2px 0 rgba(255,59,29,.22);
+}
+
+.lat-word.stage-2 .lat-surface {
+  box-shadow: inset 0 -2px 0 rgba(0,102,51,.25);
+}
+
+.lat-word.stage-3 .lat-surface {
+  background: rgba(255,234,61,.35);
+  outline: 1px solid rgba(0,102,51,.28);
+}
+
+.lat-word.active-word .lat-surface {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Les-toolbar ─── */
+.lesson-toolbar {
+  position: fixed;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  z-index: 700;
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  background: rgba(243,241,239,.96);
+  border: 1px solid var(--rand);
+  border-radius: 999px;
+  padding: .55rem .7rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,.14);
+  backdrop-filter: blur(8px);
+  max-width: calc(100vw - 2rem);
+}
+
+.lesson-toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+
+.lesson-toolbar-divider {
+  width: 1px;
+  height: 26px;
+  background: var(--rand);
+}
+
+.lesson-btn {
+  font-family: var(--fb);
+  font-size: .82rem;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--rand);
+  border-radius: 999px;
+  padding: .42rem .78rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  transition: background .15s, border-color .15s, color .15s;
+  white-space: nowrap;
+}
+
+.lesson-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.lesson-btn.active {
+  background: var(--deep-forest);
+  color: #fff;
+  border-color: var(--deep-forest);
+}
+
+.lesson-status {
+  font-family: var(--ft);
+  font-size: .66rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  white-space: nowrap;
+  padding: 0 .2rem;
+}
+
+/* ─── Annotatielaag ─── */
+.ink-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 640;
+  pointer-events: none;
+}
+
+.ink-canvas.on {
+  pointer-events: auto;
+}
+
+body.ink-on {
+  cursor: crosshair;
+}
+
+@media (max-width: 900px) {
+  .lesson-toolbar {
+    border-radius: 18px;
+    padding: .55rem;
+    bottom: .75rem;
+  }
+
+  .lesson-btn {
+    font-size: .76rem;
+    padding: .36rem .66rem;
+  }
+
+  .lesson-toolbar-divider,
+  .lesson-status {
+    display: none;
+  }
+}
 </style>
 </head>
 <body>
@@ -376,9 +560,9 @@ body.twocol .col-resizer { display: flex; }
         <svg class="weergave-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="width:9px;height:9px;margin-left:1px"><path d="M4 6l4 4 4-4"/></svg>
       </button>
       <div class="weergave-menu" id="weergaveMenu">
-        <button class="weergave-item" id="btnInterlin" onclick="toggleInterlin()">
+        <button class="weergave-item active" id="btnInterlin" onclick="toggleInterlin()">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 5h12M2 10h12"/></svg>
-          Interlineair
+          Analyse in tekst
         </button>
         <button class="weergave-item" id="btnTwocol" onclick="toggleTwocol()">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="6" height="10" rx="1"/><rect x="9" y="3" width="6" height="10" rx="1"/></svg>
@@ -735,6 +919,43 @@ body.twocol .col-resizer { display: flex; }
   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4-4 4 4"/></svg>
 </button>
 
+<canvas id="inkCanvas" class="ink-canvas"></canvas>
+
+<div class="lesson-toolbar" id="lessonToolbar">
+  <div class="lesson-toolbar-group">
+    <button class="lesson-btn" type="button" onclick="revealPrev()">◀ Vorige</button>
+    <button class="lesson-btn" type="button" onclick="revealNext()">Volgende ▶</button>
+    <button class="lesson-btn" type="button" onclick="toggleReveal()" id="lessonRevealBtn">Onthul</button>
+  </div>
+
+  <div class="lesson-toolbar-divider"></div>
+
+  <div class="lesson-toolbar-group">
+    <button class="lesson-btn" type="button" onclick="stepActiveWord()">Volgende stap</button>
+    <button class="lesson-btn" type="button" onclick="focusPrevWord()">Woord ◀</button>
+    <button class="lesson-btn" type="button" onclick="focusNextWord()">Woord ▶</button>
+  </div>
+
+  <div class="lesson-toolbar-divider"></div>
+
+  <div class="lesson-toolbar-group">
+    <button class="lesson-btn" type="button" onclick="clearCurrentWgAnalysis()">Wis woordgroep</button>
+    <button class="lesson-btn" type="button" onclick="clearAllAnalysis()">Wis alles</button>
+  </div>
+
+  <div class="lesson-toolbar-divider"></div>
+
+  <div class="lesson-toolbar-group">
+    <button class="lesson-btn" type="button" id="inkPenBtn" onclick="setInkMode('pen')">Pen</button>
+    <button class="lesson-btn" type="button" id="inkHighBtn" onclick="setInkMode('highlight')">Markeer</button>
+    <button class="lesson-btn" type="button" id="inkEraseBtn" onclick="setInkMode('erase')">Gum</button>
+    <button class="lesson-btn" type="button" onclick="clearInk()">Wis inkt</button>
+  </div>
+
+  <div class="lesson-toolbar-divider"></div>
+  <div class="lesson-status" id="lessonStatus">Analyse in tekst actief</div>
+</div>
+
 <script>
 var WL = [
   {g:"littera",a:"litterae (f.)",v:"letter; mv.: brief, tekst",b:false,t:["6d/th1/7"],volgorde:{"6d/th1/7":1}},
@@ -803,29 +1024,119 @@ function lookupWL(lemma) {
   return null;
 }
 
-var S = {lines:false, font:false, reveal:false, twocol:false, interlin:false, revIdx:-1};
+var S = {
+  lines:false,
+  font:false,
+  reveal:false,
+  twocol:false,
+  interlin:true,
+  revIdx:-1
+};
+
 var wgroups = Array.from(document.querySelectorAll('.wg'));
-var lastWord = null, clickN = 0;
+var activeWord = null;
+var popup = document.getElementById('popup');
+
+document.body.classList.add('interlin-analysis');
+
+function prepareInlineAnalysis() {
+  document.querySelectorAll('.lat-word').forEach(function(w) {
+    if (w.dataset.prepared === '1') return;
+    var txt = w.textContent;
+    w.dataset.surface = txt;
+    w.innerHTML = '<span class="inline-analysis"></span><span class="lat-surface">' + txt + '</span>';
+    w.dataset.stage = '0';
+    w.dataset.prepared = '1';
+  });
+}
+prepareInlineAnalysis();
+
+function isWordAvailable(word) {
+  if (!S.reveal) return true;
+  var wg = word.closest('.wg');
+  if (!wg) return true;
+  return wg.classList.contains('revealed') || wg.classList.contains('current');
+}
+
+function getStage(word) {
+  return parseInt(word.dataset.stage || '0', 10);
+}
+
+function setStage(word, stage) {
+  word.dataset.stage = String(stage);
+  renderInlineAnalysis(word);
+}
+
+function setActiveWord(word) {
+  document.querySelectorAll('.lat-word.active-word').forEach(function(w) {
+    w.classList.remove('active-word');
+  });
+  activeWord = word || null;
+  if (activeWord) activeWord.classList.add('active-word');
+}
+
+function renderInlineAnalysis(word) {
+  var slot = word.querySelector('.inline-analysis');
+  if (!slot) return;
+
+  var stage = getStage(word);
+  word.classList.remove('has-analysis', 'stage-1', 'stage-2', 'stage-3');
+
+  if (!S.interlin || stage === 0) {
+    slot.innerHTML = '';
+    return;
+  }
+
+  var html = '';
+  if (stage >= 1) {
+    html += '<span class="ia-line ia-lemma">' + (word.dataset.l || '') + '</span>';
+    html += '<span class="ia-line ia-meaning">' + (word.dataset.n || '') + '</span>';
+  }
+  if (stage >= 2) {
+    html += '<span class="ia-line ia-det">' + (word.dataset.d || '') + '</span>';
+  }
+  if (stage >= 3) {
+    html += '<span class="ia-line ia-func">' + (word.dataset.s || '') + '</span>';
+  }
+
+  slot.innerHTML = html;
+  word.classList.add('has-analysis', 'stage-' + stage);
+}
+
+function stepWord(word) {
+  if (!word || !isWordAvailable(word)) return;
+  setActiveWord(word);
+  var stage = getStage(word);
+  if (stage < 3) stage++;
+  setStage(word, stage);
+  updatePanel(word);
+  hidePopup();
+}
+
+function stepActiveWord() {
+  if (!activeWord) {
+    focusFirstWordInCurrentWg();
+  }
+  if (activeWord) stepWord(activeWord);
+}
 
 document.querySelectorAll('.lat-word').forEach(function(w) {
   w.addEventListener('click', function(e) {
     e.stopPropagation();
-    if (lastWord === w) { clickN++; } else {
-      if (lastWord) lastWord.classList.remove('st1','st2');
-      lastWord = w; clickN = 1;
-    }
-    w.classList.remove('st1','st2');
-    if (clickN === 1) { w.classList.add('st1'); showPopup(w, 1); updatePanel(w); }
-    else if (clickN === 2) { w.classList.add('st2'); showPopup(w, 2); }
-    else { clickN = 0; lastWord = null; hidePopup(); }
+    stepWord(w);
   });
 });
-document.addEventListener('click', function() {
-  if (lastWord) { lastWord.classList.remove('st1','st2'); lastWord = null; clickN = 0; }
-  hidePopup();
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.lat-word') && !e.target.closest('.lesson-toolbar')) {
+    document.querySelectorAll('.lat-word.active-word').forEach(function(w) {
+      w.classList.remove('active-word');
+    });
+    activeWord = null;
+    hidePopup();
+  }
 });
 
-var popup = document.getElementById('popup');
 function showPopup(el, click) {
   var wl = lookupWL(el.dataset.l);
   document.getElementById('ppWord').textContent = el.dataset.w;
@@ -875,62 +1186,142 @@ function updatePanel(w) {
   document.getElementById('analysisCard').innerHTML =
     '<div class="ac-word">' + w.dataset.w + '</div>' +
     '<div class="ac-lemma">' + (w.dataset.l||'') + '</div>' +
-    '<div class="ac-row"><span class="ac-tag tg">Det.</span><span class="ac-val">' + w.dataset.d + '</span></div>' +
+    '<div class="ac-row"><span class="ac-tag tw">Lex.</span><span class="ac-val">' + (w.dataset.n || '') + '</span></div>' +
+    '<div class="ac-row" style="margin-top:.3rem"><span class="ac-tag tg">Det.</span><span class="ac-val">' + w.dataset.d + '</span></div>' +
     '<div class="ac-row" style="margin-top:.3rem"><span class="ac-tag to">Funct.</span><span class="ac-val">' + w.dataset.s + '</span></div>' +
-    '<div class="ac-row" style="margin-top:.3rem"><span class="ac-tag tp">NL</span><span class="ac-val">' + w.dataset.n + '</span></div>' +
     wlHtml;
+}
+
+function getCurrentWg() {
+  if (S.reveal && S.revIdx >= 0 && wgroups[S.revIdx]) return wgroups[S.revIdx];
+  if (activeWord) return activeWord.closest('.wg');
+  return null;
+}
+
+function getWordsInCurrentWg() {
+  var wg = getCurrentWg();
+  return wg ? Array.from(wg.querySelectorAll('.lat-word')) : [];
+}
+
+function focusFirstWordInCurrentWg() {
+  var words = getWordsInCurrentWg();
+  if (words.length) setActiveWord(words[0]);
+}
+
+function focusNextWord() {
+  var words = getWordsInCurrentWg();
+  if (!words.length) return;
+  if (!activeWord || words.indexOf(activeWord) === -1) {
+    setActiveWord(words[0]);
+    return;
+  }
+  var idx = words.indexOf(activeWord);
+  idx = Math.min(words.length - 1, idx + 1);
+  setActiveWord(words[idx]);
+  words[idx].scrollIntoView({behavior:'smooth', block:'nearest', inline:'nearest'});
+}
+
+function focusPrevWord() {
+  var words = getWordsInCurrentWg();
+  if (!words.length) return;
+  if (!activeWord || words.indexOf(activeWord) === -1) {
+    setActiveWord(words[0]);
+    return;
+  }
+  var idx = words.indexOf(activeWord);
+  idx = Math.max(0, idx - 1);
+  setActiveWord(words[idx]);
+  words[idx].scrollIntoView({behavior:'smooth', block:'nearest', inline:'nearest'});
 }
 
 function toggleReveal() {
   S.reveal = !S.reveal;
   document.getElementById('btnReveal').classList.toggle('active', S.reveal);
+  document.getElementById('lessonRevealBtn').classList.toggle('active', S.reveal);
   document.getElementById('revealBar').classList.toggle('vis', S.reveal);
   document.getElementById('latinText').classList.toggle('reveal-mode', S.reveal);
-  if (S.reveal) { S.revIdx = -1; wgroups.forEach(function(g){ g.classList.remove('revealed','current'); }); updCount(); }
-  else { wgroups.forEach(function(g){ g.classList.remove('revealed','current'); }); }
+
+  if (S.reveal) {
+    S.revIdx = -1;
+    wgroups.forEach(function(g) {
+      g.classList.remove('revealed', 'current');
+    });
+    setActiveWord(null);
+    updCount();
+  } else {
+    wgroups.forEach(function(g) {
+      g.classList.remove('revealed', 'current');
+    });
+    setActiveWord(null);
+    updCount();
+  }
+
+  updateLessonStatus();
 }
+
 function revealNext() {
-  if (!S.reveal) return;
-  if (S.revIdx >= 0 && S.revIdx < wgroups.length) wgroups[S.revIdx].classList.remove('current');
+  if (!S.reveal) {
+    toggleReveal();
+  }
+
+  if (S.revIdx >= 0 && S.revIdx < wgroups.length) {
+    wgroups[S.revIdx].classList.remove('current');
+  }
+
   S.revIdx = Math.min(S.revIdx + 1, wgroups.length - 1);
-  wgroups[S.revIdx].classList.add('revealed','current');
+  if (S.revIdx < 0 || !wgroups[S.revIdx]) return;
+
+  wgroups[S.revIdx].classList.add('revealed', 'current');
   wgroups[S.revIdx].scrollIntoView({behavior:'smooth', block:'nearest'});
+  focusFirstWordInCurrentWg();
   updCount();
+  updateLessonStatus();
 }
+
 function revealPrev() {
   if (!S.reveal) return;
+
   if (S.revIdx >= 0) {
-    wgroups[S.revIdx].classList.remove('current','revealed');
+    wgroups[S.revIdx].classList.remove('current', 'revealed');
     S.revIdx = Math.max(S.revIdx - 1, -1);
-    if (S.revIdx >= 0) wgroups[S.revIdx].classList.add('current');
+    if (S.revIdx >= 0) {
+      wgroups[S.revIdx].classList.add('current');
+      focusFirstWordInCurrentWg();
+    } else {
+      setActiveWord(null);
+    }
   }
+
   updCount();
+  updateLessonStatus();
 }
+
 function revealAll() {
-  wgroups.forEach(function(g){ g.classList.add('revealed'); g.classList.remove('current'); });
+  if (!S.reveal) toggleReveal();
+  wgroups.forEach(function(g) {
+    g.classList.add('revealed');
+    g.classList.remove('current');
+  });
   S.revIdx = wgroups.length - 1;
+  if (wgroups[S.revIdx]) wgroups[S.revIdx].classList.add('current');
+  focusFirstWordInCurrentWg();
   updCount();
+  updateLessonStatus();
 }
+
 function updCount() {
   var done = document.querySelectorAll('.wg.revealed').length;
   document.getElementById('revCount').textContent = done + ' / ' + wgroups.length;
 }
+
 function toggleInterlin() {
   S.interlin = !S.interlin;
   document.getElementById('btnInterlin').classList.toggle('active', S.interlin);
-  document.body.classList.toggle('interlin', S.interlin);
-  if (S.interlin) {
-    document.querySelectorAll('#plainView .lat-word').forEach(function(w) {
-      if (!w.querySelector('.iln')) {
-        var sp = document.createElement('span'); sp.className = 'iln'; sp.textContent = w.dataset.n; w.appendChild(sp);
-      }
-    });
-  } else {
-    document.querySelectorAll('#plainView .lat-word').forEach(function(w) {
-      var iln = w.querySelector('.iln'); if (iln) iln.remove(); w.style.display = '';
-    });
-  }
+  document.body.classList.toggle('interlin-analysis', S.interlin);
+  document.querySelectorAll('.lat-word').forEach(renderInlineAnalysis);
+  updateLessonStatus();
 }
+
 function toggleTwocol() {
   S.twocol = !S.twocol;
   var btn = document.getElementById('btnTwocol');
@@ -1167,6 +1558,186 @@ window.addEventListener('scroll', function() {
     document.body.style.cursor = ''; document.body.style.userSelect = '';
   });
 })();
+
+function clearWordAnalysis(word) {
+  if (!word) return;
+  setStage(word, 0);
+}
+
+function clearCurrentWgAnalysis() {
+  var words = getWordsInCurrentWg();
+  words.forEach(function(w) {
+    setStage(w, 0);
+  });
+  updateLessonStatus();
+}
+
+function clearAllAnalysis() {
+  document.querySelectorAll('.lat-word').forEach(function(w) {
+    setStage(w, 0);
+  });
+  setActiveWord(null);
+  updateLessonStatus();
+}
+
+function updateLessonStatus() {
+  var st = document.getElementById('lessonStatus');
+  if (!st) return;
+
+  if (inkMode) {
+    if (inkMode === 'pen') st.textContent = 'Penannotatie actief';
+    else if (inkMode === 'highlight') st.textContent = 'Markeerstift actief';
+    else if (inkMode === 'erase') st.textContent = 'Gum actief';
+    return;
+  }
+
+  if (S.reveal && activeWord) {
+    st.textContent = 'Woordgroep onthuld · woord actief';
+    return;
+  }
+
+  if (S.reveal) {
+    st.textContent = 'Onthulmodus actief';
+    return;
+  }
+
+  if (S.interlin) {
+    st.textContent = 'Analyse in tekst actief';
+    return;
+  }
+
+  st.textContent = 'Standaardweergave';
+}
+
+/* ─── Annotatiecanvas ─── */
+var inkCanvas = document.getElementById('inkCanvas');
+var inkCtx = inkCanvas.getContext('2d');
+var inkMode = null;
+var isDrawing = false;
+var lastPt = null;
+
+function resizeInkCanvas() {
+  var prev = document.createElement('canvas');
+  prev.width = inkCanvas.width;
+  prev.height = inkCanvas.height;
+  prev.getContext('2d').drawImage(inkCanvas, 0, 0);
+
+  inkCanvas.width = window.innerWidth;
+  inkCanvas.height = window.innerHeight;
+  inkCtx.drawImage(prev, 0, 0);
+}
+
+resizeInkCanvas();
+window.addEventListener('resize', resizeInkCanvas);
+
+function updateInkButtons() {
+  document.getElementById('inkPenBtn').classList.toggle('active', inkMode === 'pen');
+  document.getElementById('inkHighBtn').classList.toggle('active', inkMode === 'highlight');
+  document.getElementById('inkEraseBtn').classList.toggle('active', inkMode === 'erase');
+
+  inkCanvas.classList.toggle('on', !!inkMode);
+  document.body.classList.toggle('ink-on', !!inkMode);
+  updateLessonStatus();
+}
+
+function setInkMode(mode) {
+  inkMode = (inkMode === mode) ? null : mode;
+  updateInkButtons();
+}
+
+function clearInk() {
+  inkCtx.clearRect(0, 0, inkCanvas.width, inkCanvas.height);
+}
+
+function getCanvasPoint(e) {
+  return { x: e.clientX, y: e.clientY };
+}
+
+inkCanvas.addEventListener('pointerdown', function(e) {
+  if (!inkMode) return;
+  isDrawing = true;
+  lastPt = getCanvasPoint(e);
+});
+
+inkCanvas.addEventListener('pointermove', function(e) {
+  if (!inkMode || !isDrawing) return;
+  var pt = getCanvasPoint(e);
+
+  inkCtx.lineCap = 'round';
+  inkCtx.lineJoin = 'round';
+
+  if (inkMode === 'erase') {
+    inkCtx.globalCompositeOperation = 'destination-out';
+    inkCtx.lineWidth = 24;
+    inkCtx.strokeStyle = 'rgba(0,0,0,1)';
+  } else if (inkMode === 'highlight') {
+    inkCtx.globalCompositeOperation = 'source-over';
+    inkCtx.lineWidth = 18;
+    inkCtx.strokeStyle = 'rgba(255,234,61,.35)';
+  } else {
+    inkCtx.globalCompositeOperation = 'source-over';
+    inkCtx.lineWidth = 3;
+    inkCtx.strokeStyle = '#FF3B1D';
+  }
+
+  inkCtx.beginPath();
+  inkCtx.moveTo(lastPt.x, lastPt.y);
+  inkCtx.lineTo(pt.x, pt.y);
+  inkCtx.stroke();
+
+  lastPt = pt;
+});
+
+function stopInk() {
+  isDrawing = false;
+  lastPt = null;
+}
+
+inkCanvas.addEventListener('pointerup', stopInk);
+inkCanvas.addEventListener('pointerleave', stopInk);
+inkCanvas.addEventListener('pointercancel', stopInk);
+
+/* ─── Sneltoetsen / presenter ─── */
+document.addEventListener('keydown', function(e) {
+  var openModal = document.getElementById('lectuurOverlay').classList.contains('open');
+  if (openModal) return;
+
+  if (e.key === 'ArrowRight') {
+    e.preventDefault();
+    revealNext();
+  } else if (e.key === 'ArrowLeft') {
+    e.preventDefault();
+    revealPrev();
+  } else if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    focusNextWord();
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    focusPrevWord();
+  } else if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    stepActiveWord();
+  } else if (e.key === 'Backspace') {
+    e.preventDefault();
+    clearCurrentWgAnalysis();
+  } else if (e.key.toLowerCase() === 'p') {
+    e.preventDefault();
+    setInkMode('pen');
+  } else if (e.key.toLowerCase() === 'h') {
+    e.preventDefault();
+    setInkMode('highlight');
+  } else if (e.key.toLowerCase() === 'e') {
+    e.preventDefault();
+    setInkMode('erase');
+  } else if (e.key === 'Escape') {
+    e.preventDefault();
+    inkMode = null;
+    updateInkButtons();
+  }
+});
+
+document.getElementById('btnInterlin').classList.add('active');
+updateLessonStatus();
 </script>
 </body>
 </html>
