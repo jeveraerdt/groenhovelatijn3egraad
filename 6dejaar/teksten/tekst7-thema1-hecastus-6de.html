@@ -504,76 +504,74 @@ body.show-lesson-toolbar .lesson-toolbar-wrap {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: .28rem;
-  background: linear-gradient(180deg, #006633 0%, #00552b 100%);
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 18px;
-  padding: .38rem;
-  box-shadow:
-    0 14px 34px rgba(0,0,0,.20),
-    inset 0 1px 0 rgba(255,255,255,.06);
-  max-height: calc(100vh - 210px);
-  overflow-y: auto;
-  scrollbar-width: none;
-}
-
-.lesson-toolbar::-webkit-scrollbar {
-  display: none;
+  gap: .34rem;
+  padding: .35rem;
+  border-radius: 24px;
+  background: rgba(255,255,255,.34);
+  border: 1px solid rgba(0,102,51,.10);
+  box-shadow: 0 10px 28px rgba(0,0,0,.10);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .lesson-toolbar-group {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: .28rem;
+  gap: .34rem;
 }
 
 .lesson-toolbar-divider {
-  width: 18px;
-  height: 1px;
-  background: rgba(255,255,255,.12);
-  margin: .08rem 0;
+  width: 12px;
+  height: 10px;
 }
 
 .lesson-btn {
-  width: 34px;
-  height: 34px;
-  font-family: var(--fb);
-  font-size: .78rem;
-  color: #fff;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 11px;
+  width: 42px;
+  height: 42px;
   padding: 0;
-  cursor: pointer;
+  border: none;
+  border-radius: 14px;
+  background: rgba(255,255,255,.78);
+  color: var(--deep-forest);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background .15s, border-color .15s, color .15s, transform .12s, box-shadow .12s;
+  cursor: pointer;
+  transition:
+    transform .12s ease,
+    background .15s ease,
+    color .15s ease,
+    box-shadow .15s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
 }
 
 .lesson-btn:hover {
-  background: rgba(255,255,255,.12);
-  border-color: rgba(255,255,255,.14);
   transform: translateY(-1px);
+  background: rgba(255,255,255,.96);
+  box-shadow: 0 6px 16px rgba(0,0,0,.10);
+}
+
+.lesson-btn:active {
+  transform: translateY(0);
 }
 
 .lesson-btn.active {
   background: #ffea3d;
-  color: #006633;
-  border-color: #ffea3d;
-  box-shadow: 0 0 0 2px rgba(255,234,61,.16);
+  color: var(--deep-forest);
+  box-shadow:
+    0 0 0 2px rgba(255,234,61,.28),
+    0 6px 16px rgba(0,0,0,.10);
 }
 
 .lesson-btn.danger:hover {
-  background: #FF3B1D;
-  border-color: #FF3B1D;
+  background: var(--accent);
   color: #fff;
 }
 
 .lesson-btn svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   stroke: currentColor;
 }
 
@@ -583,15 +581,17 @@ body.show-lesson-toolbar .lesson-toolbar-wrap {
 
 .tool-palette {
   position: absolute;
-  left: calc(100% + 10px);
+  left: calc(100% + 12px);
   display: none;
   grid-template-columns: repeat(3, 18px);
   gap: 8px;
-  padding: 8px;
-  background: #ffffff;
+  padding: 10px;
+  background: rgba(255,255,255,.96);
   border: 1px solid rgba(0,0,0,.08);
-  border-radius: 12px;
-  box-shadow: 0 10px 26px rgba(0,0,0,.15);
+  border-radius: 14px;
+  box-shadow: 0 10px 26px rgba(0,0,0,.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .tool-palette.open {
@@ -599,11 +599,11 @@ body.show-lesson-toolbar .lesson-toolbar-wrap {
 }
 
 #penPalette {
-  top: 208px;
+  top: 210px;
 }
 
 #highlightPalette {
-  top: 250px;
+  top: 258px;
 }
 
 .swatch {
@@ -612,7 +612,7 @@ body.show-lesson-toolbar .lesson-toolbar-wrap {
   border-radius: 50%;
   border: 2px solid rgba(0,0,0,.10);
   cursor: pointer;
-  transition: transform .12s, border-color .12s, box-shadow .12s;
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
 }
 
 .swatch:hover {
@@ -644,27 +644,26 @@ body.show-lesson-toolbar .lesson-toolbar-wrap {
 
   .lesson-toolbar {
     flex-direction: row;
-    max-height: none;
-    overflow: visible;
-    padding: .45rem;
-    gap: .35rem;
+    gap: .4rem;
+    padding: .42rem;
+    border-radius: 22px;
   }
 
   .lesson-toolbar-group {
     flex-direction: row;
+    gap: .34rem;
   }
 
   .lesson-toolbar-divider {
-    width: 1px;
-    height: 18px;
-    margin: 0 .1rem;
+    width: 10px;
+    height: 1px;
   }
 
   .tool-palette {
     left: 50%;
     transform: translateX(-50%);
     top: auto !important;
-    bottom: calc(100% + 10px);
+    bottom: calc(100% + 12px);
   }
 }
 
