@@ -70,9 +70,24 @@
     animation: logoIn .8s ease-out both;
   }
 
+  .background-image {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: min(46vw, 720px);
+    max-height: 92vh;
+    object-fit: contain;
+    object-position: right bottom;
+    opacity: .72;
+    pointer-events: none;
+    z-index: 1;
+    user-select: none;
+    animation: bgIn .9s ease-out both;
+  }
+
   .content {
     position: relative;
-    z-index: 2;
+    z-index: 3;
     width: 100%;
     max-width: 900px;
     margin-left: clamp(5rem, 15vw, 15rem);
@@ -82,32 +97,26 @@
     animation: pageIn .55s ease-out both;
   }
 
-  .gold-divider,
-  .footer-divider {
+  .gold-divider {
     width: min(320px, 40vw);
     height: 13px;
+    margin: 0 0 1rem;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .gold-divider { margin: 0 0 1rem; }
-  .footer-divider { width: min(360px, 52vw); margin: .1rem 0 .7rem; }
   .gold-divider::before,
-  .gold-divider::after,
-  .footer-divider::before,
-  .footer-divider::after {
+  .gold-divider::after {
     content: '';
     height: 1px;
     flex: 1;
     background: linear-gradient(to right, transparent, var(--lijn-goud));
   }
-  .gold-divider::after,
-  .footer-divider::after {
+  .gold-divider::after {
     background: linear-gradient(to left, transparent, var(--lijn-goud));
   }
-  .gold-divider span,
-  .footer-divider span {
+  .gold-divider span {
     width: 9px;
     height: 9px;
     margin: 0 14px;
@@ -148,7 +157,7 @@
   .jaar-kaart {
     --kaart-kleur: var(--deep-forest);
     position: relative;
-    min-height: 330px;
+    min-height: 292px;
     overflow: hidden;
     border-radius: var(--radius);
     background: var(--kaart);
@@ -166,7 +175,7 @@
     content: '';
     position: absolute;
     inset: 0 0 auto 0;
-    height: 43%;
+    height: 34%;
     background: var(--kaart-kleur);
     z-index: 0;
   }
@@ -176,8 +185,8 @@
     position: absolute;
     left: -8%;
     right: -8%;
-    top: 33%;
-    height: 92px;
+    top: 24%;
+    height: 76px;
     background: var(--kaart);
     border-radius: 50% 50% 0 0 / 72% 72% 0 0;
     z-index: 1;
@@ -191,36 +200,12 @@
     transform: translateY(-8px);
     box-shadow: 0 28px 60px rgba(0, 42, 21, .17);
   }
-
-  .jaar-icoon {
-    position: relative;
-    z-index: 2;
-    height: 116px;
-    width: 100%;
-    display: grid;
-    place-items: center;
-    padding-top: 1.1rem;
-  }
-
-  .jaar-icoon img {
-    width: auto;
-    height: auto;
-    max-width: 132px;
-    max-height: 92px;
-    display: block;
-    object-fit: contain;
-    filter: brightness(0) invert(1);
-    transition: transform .28s ease;
-  }
-
-  .jaar-kaart:hover .jaar-icoon img { transform: translateY(-3px) scale(1.04); }
-
-  .jaar-inhoud {
+.jaar-inhoud {
     position: relative;
     z-index: 2;
     flex: 1;
     width: 100%;
-    padding: 2.9rem 1.7rem 1.6rem;
+    padding: 5.15rem 1.7rem 1.6rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -268,6 +253,34 @@
     box-shadow: 0 14px 30px rgba(255, 59, 29, .32);
   }
 
+  .footer-divider {
+    width: min(360px, 52vw);
+    height: 13px;
+    margin: .1rem 0 .7rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .footer-divider::before,
+  .footer-divider::after {
+    content: '';
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(to right, transparent, var(--lijn-goud));
+  }
+  .footer-divider::after {
+    background: linear-gradient(to left, transparent, var(--lijn-goud));
+  }
+  .footer-divider span {
+    width: 9px;
+    height: 9px;
+    margin: 0 14px;
+    border: 1px solid var(--lijn-goud);
+    transform: rotate(45deg);
+    background: var(--achtergrond);
+  }
+
   .voet {
     font-family: var(--fb);
     font-size: .76rem;
@@ -284,13 +297,22 @@
     from { opacity: 0; transform: translateY(12px) scale(.96); }
     to { opacity: 1; transform: translateY(0) scale(1); }
   }
+  @keyframes bgIn {
+    from { opacity: 0; transform: translateX(18px); }
+    to { opacity: .72; transform: translateX(0); }
+  }
 
   @media (max-width: 900px) {
     body { justify-content: flex-start; padding-top: 4rem; }
     .content { margin-left: clamp(1rem, 12vw, 7rem); }
     .jaar-grid { grid-template-columns: 1fr; max-width: 360px; }
-    .jaar-kaart { min-height: 310px; }
+    .jaar-kaart { min-height: 280px; }
     .hero-logo { width: 76px; left: 1.1rem; bottom: 1.1rem; }
+    .background-image {
+      width: 62vw;
+      opacity: .42;
+      right: -10vw;
+    }
   }
 
   @media (max-width: 560px) {
@@ -301,13 +323,19 @@
     .keuze-titel { font-size: 2.45rem; }
     .gold-divider,
     .footer-divider { width: 210px; }
+    .background-image {
+      width: 86vw;
+      opacity: .24;
+      right: -22vw;
+    }
   }
 </style>
 </head>
 <body>
 
   <img class="hero-curve" src="images/heroes/curvedhero.svg" alt="" aria-hidden="true">
-  <img class="hero-logo" src="images/nav/logo_mono_wit.png" alt="" aria-hidden="true">
+  <img class="background-image" src="images/heroes/aeneas-bg.png" alt="" aria-hidden="true">
+  <img class="hero-logo" src="images/nav/logo_rood.svg" alt="" aria-hidden="true">
 
   <main class="content" aria-labelledby="pagina-titel">
     <div class="gold-divider" aria-hidden="true"><span></span></div>
@@ -317,7 +345,6 @@
 
     <div class="jaar-grid">
       <a class="jaar-kaart vijfde" href="5dejaar/index.html">
-        <div class="jaar-icoon"><img src="images/cards/tegel-5dejaar.svg" alt="5de jaar" /></div>
         <div class="jaar-inhoud">
           <div class="jaar-naam">5de jaar</div>
           <div class="jaar-omschrijving">Grammatica, teksten, vocabularium en oefeningen.</div>
@@ -326,7 +353,6 @@
       </a>
 
       <a class="jaar-kaart zesde" href="6dejaar/index.html">
-        <div class="jaar-icoon"><img src="images/cards/tegel-6dejaar.svg" alt="6de jaar" /></div>
         <div class="jaar-inhoud">
           <div class="jaar-naam">6de jaar</div>
           <div class="jaar-omschrijving">Grammatica, teksten, vocabularium en oefeningen.</div>
