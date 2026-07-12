@@ -13,7 +13,7 @@
 <style>
   @font-face {
     font-family: 'FlandersArtSans';
-    src: url('../fonts/flanders-art-sans/FLANDERSARTSANS-BOLD.OTF') format('opentype');
+    src: url('../../fonts/flanders-art-sans/FLANDERSARTSANS-BOLD.OTF') format('opentype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -21,7 +21,7 @@
 
   @font-face {
     font-family: 'NotoSans';
-    src: url('../fonts/noto-sans/NotoSans-Regular.woff2') format('woff2');
+    src: url('../../fonts/noto-sans/NotoSans-Regular.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -29,7 +29,7 @@
 
   @font-face {
     font-family: 'NotoSans';
-    src: url('../fonts/noto-sans/NotoSans-Bold.woff2') format('woff2');
+    src: url('../../fonts/noto-sans/NotoSans-Bold.woff2') format('woff2');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -39,20 +39,14 @@
     --waregem-red-pulse: #FF3B1D;
     --balanced-yellow: #ffea3d;
     --vital-green: #65b32e;
-    --deep-forest: #006633;
-
     --cool-background: #fffdf0;
     --card: #f3f1ef;
     --white: #ffffff;
     --ink: #010100;
     --body: #526052;
-    --muted: #6b706d;
     --line: #dedfd9;
-    --soft-red: #fff0ec;
     --shadow: 0 14px 30px rgba(70, 18, 5, .09);
-
     --radius-xl: 28px;
-    --radius-lg: 22px;
     --fv: 'FlandersArtSans', 'Arial Black', Arial, sans-serif;
     --fo: 'NotoSans', Arial, sans-serif;
     --container-pad: clamp(1rem, 3vw, 2rem);
@@ -78,7 +72,8 @@
     flex-direction: column;
   }
 
-  h1, h2, h3, .site-title, .thema-titel, .kaart-titel {
+  h1, h2, h3, .site-title, .navigation-heading, .nav-number,
+  .nav-card h2, .kicker {
     font-family: var(--fv);
     font-weight: 700;
   }
@@ -102,7 +97,7 @@
     font-variation-settings: 'FILL' 0, 'wght' 520, 'GRAD' 0, 'opsz' 24;
   }
 
-  /* Merklint 5de jaar */
+  /* Exact hetzelfde merklint als teksten_5de. */
   .site-header {
     position: relative;
     display: grid;
@@ -192,11 +187,8 @@
     font-weight: 400;
     text-decoration: none;
     cursor: pointer;
-    transition:
-      background .16s ease,
-      border-color .16s ease,
-      color .16s ease,
-      transform .16s ease;
+    transition: background .16s ease, border-color .16s ease,
+                color .16s ease, transform .16s ease;
   }
 
   .back-btn .material-symbols-rounded { font-size: 18px; }
@@ -211,7 +203,7 @@
 
   .back-btn:focus-visible,
   .ctrl-btn:focus-visible,
-  .tekst-kaart:focus-visible {
+  .nav-card:focus-visible {
     outline: 3px solid var(--balanced-yellow);
     outline-offset: 4px;
   }
@@ -228,6 +220,7 @@
     width: 100%;
   }
 
+  /* Letterlijk dezelfde intro-instellingen als teksten_5de. */
   .page-intro {
     width: 100%;
     max-width: 1180px;
@@ -237,14 +230,12 @@
              clamp(1.4rem, 2.8vw, 2.2rem);
   }
 
-  /* Exact gelijk aan de kicker op index 5de jaar. */
   .kicker {
     display: inline-flex;
     align-items: center;
     gap: .5rem;
     margin: 0 0 .6rem;
     color: var(--waregem-red-pulse);
-    font-family: var(--fv);
     font-size: .85rem;
     letter-spacing: .12em;
     text-transform: uppercase;
@@ -262,12 +253,13 @@
     max-width: 11ch;
     margin: 0;
     color: var(--waregem-red-pulse);
+    font-family: var(--fv);
+    font-weight: 700;
     font-size: clamp(3.1rem, 6.7vw, 6.15rem);
     line-height: .92;
     letter-spacing: -.055em;
   }
 
-  /* Aparte class zodat de kicker nooit door een brede p-regel wordt overschreven. */
   .intro-copy {
     max-width: 42rem;
     margin: 1.35rem 0 0;
@@ -287,9 +279,7 @@
   .navigation-heading {
     margin: 0 0 1.1rem;
     color: var(--waregem-red-pulse);
-    font-family: var(--fv);
     font-size: clamp(1.15rem, 1.7vw, 1.5rem);
-    font-weight: 700;
     letter-spacing: -.02em;
     line-height: 1;
   }
@@ -315,7 +305,8 @@
     gap: .68rem;
     text-align: left;
     text-decoration: none;
-    transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease;
+    transition: background .18s ease, border-color .18s ease,
+                color .18s ease, transform .18s ease, box-shadow .18s ease;
   }
 
   .nav-card:hover {
@@ -331,9 +322,7 @@
     border-radius: 50%;
     background: var(--white);
     color: var(--waregem-red-pulse);
-    font-family: var(--fv);
     font-size: .84rem;
-    font-weight: 700;
     line-height: 1;
   }
 
@@ -355,9 +344,7 @@
   .nav-card h2 {
     margin: .08rem 0 0;
     color: currentColor;
-    font-family: var(--fv);
     font-size: clamp(1.35rem, 2.3vw, 1.75rem);
-    font-weight: 700;
     letter-spacing: -.035em;
     line-height: 1;
   }
@@ -463,22 +450,22 @@
 
 <body>
   <header class="site-header">
-    <img class="logo" src="../images/nav/logo_mono_wit.png" alt="S.O. Groenhove">
+    <img class="logo" src="../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove">
     <span class="site-title">Latijn 5de jaar</span>
     <span class="site-sub">S.O. Groenhove Waregem</span>
   </header>
 
   <div class="site-toolbar">
     <div class="toolbar-left">
-      <button class="back-btn" type="button" onclick="history.back()">
+      <a class="back-btn" href="../index.html">
         <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
-        <span>Terug</span>
-      </button>
+        <span>Terug naar 5de jaar</span>
+      </a>
 
-      <div class="topbar-divider"></div>
+      <div class="topbar-divider" aria-hidden="true"></div>
 
-      <a class="ctrl-btn" href="oefeningen/grammatica-keuze.html">Grammatica</a>
-      <a class="ctrl-btn" href="oefeningen/woordenschat/woordjestrainer-5ds.html">Woordenschat</a>
+      <a class="ctrl-btn" href="grammatica-keuze.html">Grammatica</a>
+      <a class="ctrl-btn" href="woordenschat/woordjestrainer-5ds.html">Woordenschat</a>
     </div>
   </div>
 
@@ -494,21 +481,32 @@
 
     <section class="navigation-section" aria-labelledby="navigatie-titel">
       <h2 id="navigatie-titel" class="navigation-heading">Wat wil je oefenen?</h2>
+
       <div class="navigation-grid">
-        <a class="nav-card nav-card--red" href="oefeningen/grammatica-keuze.html">
+        <a class="nav-card nav-card--red" href="grammatica-keuze.html">
           <span class="nav-number">I</span>
-          <span class="nav-icon" aria-hidden="true"><span class="material-symbols-rounded">rule</span></span>
+          <span class="nav-icon" aria-hidden="true">
+            <span class="material-symbols-rounded">rule</span>
+          </span>
           <h2>Grammatica</h2>
           <p>Oefen verbuigingen, vervoegingen en andere grammaticaonderwerpen.</p>
-          <span class="card-link-label">Openen <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span></span>
+          <span class="card-link-label">
+            Openen
+            <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span>
+          </span>
         </a>
 
-        <a class="nav-card nav-card--yellow" href="oefeningen/woordenschat/woordjestrainer-5ds.html">
+        <a class="nav-card nav-card--yellow" href="woordenschat/woordjestrainer-5ds.html">
           <span class="nav-number">II</span>
-          <span class="nav-icon" aria-hidden="true"><span class="material-symbols-rounded">edit_note</span></span>
+          <span class="nav-icon" aria-hidden="true">
+            <span class="material-symbols-rounded">edit_note</span>
+          </span>
           <h2>Woordenschat</h2>
           <p>Train de woorden uit je cursus met de woordjestrainer van het vijfde jaar.</p>
-          <span class="card-link-label">Openen <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span></span>
+          <span class="card-link-label">
+            Openen
+            <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span>
+          </span>
         </a>
       </div>
     </section>
