@@ -25,7 +25,7 @@
     --tekst: #010100;
     --tekst-zacht: #7f8d88;
     --lijn-goud: rgba(196, 151, 41, .58);
-    --schaduw: 0 18px 38px rgba(0, 42, 21, .10);
+    --schaduw: 0 15px 32px rgba(0, 42, 21, .085);
     --ft: 'Flanders Art Sans', Arial, sans-serif;
     --fb: 'Noto Sans', Arial, sans-serif;
     --radius: 16px;
@@ -72,25 +72,66 @@
 
   .background-image {
     position: fixed;
-    right: 0;
-    bottom: 0;
-    width: min(46vw, 720px);
-    max-height: 92vh;
+    right: -3.5vw;
+    bottom: -3vh;
+    width: min(54vw, 860px);
+    max-height: 98vh;
     object-fit: contain;
     object-position: right bottom;
-    opacity: .72;
+    opacity: .50;
+    filter: sepia(.08) saturate(.72) contrast(.92);
     pointer-events: none;
     z-index: 1;
     user-select: none;
     animation: bgIn .9s ease-out both;
+
+    -webkit-mask-image:
+      linear-gradient(to left,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,.98) 48%,
+        rgba(0,0,0,.72) 68%,
+        rgba(0,0,0,.26) 84%,
+        rgba(0,0,0,0) 100%),
+      linear-gradient(to top,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,.92) 58%,
+        rgba(0,0,0,.55) 82%,
+        rgba(0,0,0,0) 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to left,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,.98) 48%,
+        rgba(0,0,0,.72) 68%,
+        rgba(0,0,0,.26) 84%,
+        rgba(0,0,0,0) 100%),
+      linear-gradient(to top,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,.92) 58%,
+        rgba(0,0,0,.55) 82%,
+        rgba(0,0,0,0) 100%);
+    mask-composite: intersect;
+  }
+
+  .background-glow {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 84% 42%,
+        rgba(255,255,255,.88) 0%,
+        rgba(255,255,255,.52) 24%,
+        rgba(255,251,216,.18) 48%,
+        rgba(255,251,216,0) 70%);
   }
 
   .content {
     position: relative;
     z-index: 3;
     width: 100%;
-    max-width: 900px;
-    margin-left: clamp(5rem, 15vw, 15rem);
+    max-width: 860px;
+    margin-left: clamp(4rem, 13vw, 12rem);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -299,7 +340,7 @@
   }
   @keyframes bgIn {
     from { opacity: 0; transform: translateX(18px); }
-    to { opacity: .72; transform: translateX(0); }
+    to { opacity: .50; transform: translateX(0); }
   }
 
   @media (max-width: 900px) {
@@ -309,9 +350,10 @@
     .jaar-kaart { min-height: 280px; }
     .hero-logo { width: 76px; left: 1.1rem; bottom: 1.1rem; }
     .background-image {
-      width: 62vw;
-      opacity: .42;
-      right: -10vw;
+      width: 68vw;
+      right: -14vw;
+      bottom: -2vh;
+      opacity: .34;
     }
   }
 
@@ -324,9 +366,10 @@
     .gold-divider,
     .footer-divider { width: 210px; }
     .background-image {
-      width: 86vw;
-      opacity: .24;
-      right: -22vw;
+      width: 94vw;
+      right: -34vw;
+      bottom: 0;
+      opacity: .20;
     }
   }
 </style>
@@ -334,7 +377,8 @@
 <body>
 
   <img class="hero-curve" src="images/heroes/curvedhero.svg" alt="" aria-hidden="true">
-  <img class="background-image" src="images/heroes/index3e-statue-bg.png" alt="" aria-hidden="true">
+  <div class="background-glow" aria-hidden="true"></div>
+  <img class="background-image" src="images/heroes/aeneas-bg.png" alt="" aria-hidden="true">
   <img class="hero-logo" src="images/nav/logo_rood.svg" alt="" aria-hidden="true">
 
   <main class="content" aria-labelledby="pagina-titel">
