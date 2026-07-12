@@ -281,21 +281,17 @@
     width: 100%;
     max-width: 1180px;
     margin: 0 auto;
-    padding: .75rem var(--container-pad) 3.2rem;
+    padding: .75rem var(--container-pad) 3.25rem;
   }
 
   .navigation-heading {
-    font-family: var(--fv);
-    font-weight: 700;
-    font-family: var(--fv);
-    font-weight: 700;
     margin: 0 0 1.1rem;
     color: var(--waregem-red-pulse);
     font-family: var(--fv);
-    font-size: clamp(1.05rem, 1.45vw, 1.32rem);
+    font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+    font-weight: 700;
     letter-spacing: -.02em;
     line-height: 1;
-    text-align: left;
   }
 
   .navigation-grid {
@@ -328,8 +324,6 @@
   }
 
   .nav-number {
-    font-family: var(--fv);
-    font-weight: 700;
     display: grid;
     place-items: center;
     width: 38px;
@@ -337,9 +331,10 @@
     border-radius: 50%;
     background: var(--white);
     color: var(--waregem-red-pulse);
+    font-family: var(--fv);
     font-size: .84rem;
+    font-weight: 700;
     line-height: 1;
-    transition: background .18s ease, color .18s ease;
   }
 
   .nav-icon {
@@ -350,7 +345,6 @@
     border-radius: 50%;
     background: var(--white);
     color: var(--waregem-red-pulse);
-    transition: background .18s ease, color .18s ease;
   }
 
   .nav-icon .material-symbols-rounded {
@@ -359,36 +353,32 @@
   }
 
   .nav-card h2 {
-    font-family: var(--fv);
-    font-weight: 700;
-    font-family: var(--fv);
-    font-weight: 700;
     margin: .08rem 0 0;
     color: currentColor;
-    font-size: clamp(1.22rem, 1.85vw, 1.52rem);
+    font-family: var(--fv);
+    font-size: clamp(1.35rem, 2.3vw, 1.75rem);
+    font-weight: 700;
     letter-spacing: -.035em;
     line-height: 1;
   }
 
   .nav-card p {
-    max-width: 30ch;
+    max-width: 28ch;
     margin: 0;
     color: #675d58;
     font-family: var(--fo);
     font-size: .88rem;
     line-height: 1.48;
-    transition: color .18s ease;
   }
 
   .card-link-label {
-    font-family: var(--fo);
     display: inline-flex;
     align-items: center;
     gap: .22rem;
     margin-top: .15rem;
     color: currentColor;
-    font-family: var(--fv);
-    font-size: .76rem;
+    font-family: var(--fo);
+    font-size: .8rem;
     font-weight: 700;
   }
 
@@ -430,7 +420,6 @@
     text-align: center;
   }
 
-
   @media (max-width: 820px) {
     .navigation-grid { grid-template-columns: 1fr; }
     .nav-card { min-height: 225px; }
@@ -468,10 +457,6 @@
       padding-left: 1rem;
       padding-right: 1rem;
     }
-
-    .page-intro h1 { font-size: clamp(3rem, 17vw, 4.6rem); }
-    .navigation-section { padding-bottom: 2.25rem; }
-    .navigation-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -485,15 +470,15 @@
 
   <div class="site-toolbar">
     <div class="toolbar-left">
-      <a class="back-btn" href="index.html">
+      <button class="back-btn" type="button" onclick="history.back()">
         <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
-        <span>Terug naar 5de jaar</span>
-      </a>
+        <span>Terug</span>
+      </button>
 
       <div class="topbar-divider"></div>
 
-      <a class="ctrl-btn" href="grammatica-keuze.html">Grammatica</a>
-      <a class="ctrl-btn" href="woordenschat/woordjestrainer-5ds.html">Woordenschat</a>
+      <a class="ctrl-btn" href="oefeningen/grammatica-keuze.html">Grammatica</a>
+      <a class="ctrl-btn" href="oefeningen/woordenschat/woordjestrainer-5ds.html">Woordenschat</a>
     </div>
   </div>
 
@@ -509,32 +494,21 @@
 
     <section class="navigation-section" aria-labelledby="navigatie-titel">
       <h2 id="navigatie-titel" class="navigation-heading">Wat wil je oefenen?</h2>
-
       <div class="navigation-grid">
-        <a class="nav-card nav-card--red" href="grammatica-keuze.html">
+        <a class="nav-card nav-card--red" href="oefeningen/grammatica-keuze.html">
           <span class="nav-number">I</span>
-          <span class="nav-icon" aria-hidden="true">
-            <span class="material-symbols-rounded">rule</span>
-          </span>
+          <span class="nav-icon" aria-hidden="true"><span class="material-symbols-rounded">rule</span></span>
           <h2>Grammatica</h2>
           <p>Oefen verbuigingen, vervoegingen en andere grammaticaonderwerpen.</p>
-          <span class="card-link-label">
-            Openen
-            <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span>
-          </span>
+          <span class="card-link-label">Openen <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span></span>
         </a>
 
-        <a class="nav-card nav-card--yellow" href="woordenschat/woordjestrainer-5ds.html">
+        <a class="nav-card nav-card--yellow" href="oefeningen/woordenschat/woordjestrainer-5ds.html">
           <span class="nav-number">II</span>
-          <span class="nav-icon" aria-hidden="true">
-            <span class="material-symbols-rounded">edit_note</span>
-          </span>
+          <span class="nav-icon" aria-hidden="true"><span class="material-symbols-rounded">edit_note</span></span>
           <h2>Woordenschat</h2>
           <p>Train de woorden uit je cursus met de woordjestrainer van het vijfde jaar.</p>
-          <span class="card-link-label">
-            Openen
-            <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span>
-          </span>
+          <span class="card-link-label">Openen <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span></span>
         </a>
       </div>
     </section>
