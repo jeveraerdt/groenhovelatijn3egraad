@@ -46,10 +46,13 @@
     --white: #ffffff;
     --ink: #010100;
     --body: #526052;
+    --muted: #6b706d;
     --line: #dedfd9;
+    --soft-red: #fff0ec;
     --shadow: 0 14px 30px rgba(70, 18, 5, .09);
 
     --radius-xl: 28px;
+    --radius-lg: 22px;
     --fv: 'FlandersArtSans', 'Arial Black', Arial, sans-serif;
     --fo: 'NotoSans', Arial, sans-serif;
     --container-pad: clamp(1rem, 3vw, 2rem);
@@ -75,14 +78,7 @@
     flex-direction: column;
   }
 
-  h1, h2, h3,
-  .site-title,
-  .kicker,
-  .navigation-heading,
-  .nav-number,
-  .nav-card h2,
-  .quick-link,
-  .card-link-label {
+  h1, h2, h3, .site-title, .thema-titel, .kaart-titel {
     font-family: var(--fv);
     font-weight: 700;
   }
@@ -91,7 +87,7 @@
     font-family: 'Material Symbols Rounded';
     font-weight: normal;
     font-style: normal;
-    font-size: 30px;
+    font-size: 24px;
     line-height: 1;
     letter-spacing: normal;
     text-transform: none;
@@ -167,68 +163,69 @@
     white-space: nowrap;
   }
 
-  .utility-row {
+  .site-toolbar {
     width: 100%;
-    margin: 0;
     padding: 1rem var(--header-pad) .15rem;
+  }
+
+  .toolbar-left {
     display: flex;
     align-items: center;
-    gap: .6rem;
+    gap: .55rem;
     flex-wrap: wrap;
   }
 
-  .back-link,
-  .quick-link {
+  .back-btn,
+  .ctrl-btn {
     display: inline-flex;
     align-items: center;
-    gap: .38rem;
-    color: #67635f;
-    font-family: var(--fo);
-    font-size: .88rem;
-    font-weight: 400;
-    text-decoration: none;
-    transition: background .16s ease, border-color .16s ease, color .16s ease, transform .16s ease;
-  }
-
-  .back-link .material-symbols-rounded { font-size: 18px; }
-  .back-link:hover { color: var(--waregem-red-pulse); }
-
-  .utility-divider {
-    width: 1px;
-    height: 20px;
-    background: var(--line);
-    margin: 0 .1rem;
-  }
-
-  .quick-link {
-    min-height: 30px;
-    font-family: var(--fv);
-    padding: .24rem .75rem;
+    justify-content: center;
+    gap: .35rem;
+    min-height: 34px;
+    padding: .38rem .88rem;
     border: 1px solid var(--line);
     border-radius: 999px;
     background: transparent;
-    color: var(--waregem-red-pulse);
-    font-size: .82rem;
-    font-weight: 700;
+    color: #67635f;
+    font-family: var(--fo);
+    font-size: .86rem;
+    font-weight: 400;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background .16s ease,
+      border-color .16s ease,
+      color .16s ease,
+      transform .16s ease;
   }
 
-  .quick-link:hover {
+  .back-btn .material-symbols-rounded { font-size: 18px; }
+
+  .back-btn:hover,
+  .ctrl-btn:hover {
     background: var(--waregem-red-pulse);
     border-color: var(--waregem-red-pulse);
     color: var(--white);
     transform: translateY(-1px);
   }
 
-  .back-link:focus-visible,
-  .quick-link:focus-visible,
-  .nav-card:focus-visible {
+  .back-btn:focus-visible,
+  .ctrl-btn:focus-visible,
+  .tekst-kaart:focus-visible {
     outline: 3px solid var(--balanced-yellow);
     outline-offset: 4px;
   }
 
+  .topbar-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--line);
+    margin: 0 .25rem;
+  }
+
   main {
     flex: 1;
-    overflow: hidden;
+    width: 100%;
   }
 
   .page-intro {
@@ -240,6 +237,7 @@
              clamp(1.4rem, 2.8vw, 2.2rem);
   }
 
+  /* Exact gelijk aan de kicker op index 5de jaar. */
   .kicker {
     display: inline-flex;
     align-items: center;
@@ -264,11 +262,12 @@
     max-width: 11ch;
     margin: 0;
     color: var(--waregem-red-pulse);
-    font-size: clamp(2.45rem, 4.4vw, 4.15rem);
+    font-size: clamp(3.1rem, 6.7vw, 6.15rem);
     line-height: .92;
     letter-spacing: -.055em;
   }
 
+  /* Aparte class zodat de kicker nooit door een brede p-regel wordt overschreven. */
   .intro-copy {
     max-width: 42rem;
     margin: 1.35rem 0 0;
@@ -286,6 +285,8 @@
   }
 
   .navigation-heading {
+    font-family: var(--fv);
+    font-weight: 700;
     font-family: var(--fv);
     font-weight: 700;
     margin: 0 0 1.1rem;
@@ -327,6 +328,8 @@
   }
 
   .nav-number {
+    font-family: var(--fv);
+    font-weight: 700;
     display: grid;
     place-items: center;
     width: 38px;
@@ -358,6 +361,8 @@
   .nav-card h2 {
     font-family: var(--fv);
     font-weight: 700;
+    font-family: var(--fv);
+    font-weight: 700;
     margin: .08rem 0 0;
     color: currentColor;
     font-size: clamp(1.22rem, 1.85vw, 1.52rem);
@@ -376,6 +381,7 @@
   }
 
   .card-link-label {
+    font-family: var(--fo);
     display: inline-flex;
     align-items: center;
     gap: .22rem;
@@ -424,9 +430,16 @@
     text-align: center;
   }
 
+
   @media (max-width: 820px) {
     .navigation-grid { grid-template-columns: 1fr; }
     .nav-card { min-height: 225px; }
+  }
+
+  @media (max-width: 720px) {
+    .topbar-divider { display: none; }
+    .page-intro { padding-top: 2.35rem; }
+    .page-intro h1 { font-size: clamp(3rem, 17vw, 4.6rem); }
   }
 
   @media (max-width: 600px) {
@@ -444,19 +457,21 @@
 
     .site-sub { display: none; }
 
-    .utility-row,
+    .site-toolbar {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      padding-top: .85rem;
+    }
+
     .page-intro,
     .navigation-section {
       padding-left: 1rem;
       padding-right: 1rem;
     }
 
-    .utility-row { padding-top: .85rem; }
-    .utility-divider,
-    .quick-link { display: none; }
-    .page-intro { padding-top: 2.35rem; }
-    .page-intro h1 { font-size: clamp(2.35rem, 11.5vw, 3.35rem); }
+    .page-intro h1 { font-size: clamp(3rem, 17vw, 4.6rem); }
     .navigation-section { padding-bottom: 2.25rem; }
+    .navigation-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -468,19 +483,21 @@
     <span class="site-sub">S.O. Groenhove Waregem</span>
   </header>
 
-  <main>
-    <div class="utility-row">
-      <a class="back-link" href="index.html">
+  <div class="site-toolbar">
+    <div class="toolbar-left">
+      <a class="back-btn" href="index.html">
         <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
         <span>Terug naar 5de jaar</span>
       </a>
 
-      <span class="utility-divider" aria-hidden="true"></span>
+      <div class="topbar-divider"></div>
 
-      <a class="quick-link" href="grammatica-keuze.html">Grammatica</a>
-      <a class="quick-link" href="woordenschat/woordjestrainer-5ds.html">Woordenschat</a>
+      <a class="ctrl-btn" href="grammatica-keuze.html">Grammatica</a>
+      <a class="ctrl-btn" href="woordenschat/woordjestrainer-5ds.html">Woordenschat</a>
     </div>
+  </div>
 
+  <main>
     <section class="page-intro" aria-labelledby="pagina-titel">
       <p class="kicker">5de jaar</p>
       <h1 id="pagina-titel">Oefeningen</h1>
