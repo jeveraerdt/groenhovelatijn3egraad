@@ -25,7 +25,7 @@
     font-weight: 700;
   }
   :root {
-    --blauw: #006633; --roze: #FF3B1D;
+    --blauw: #FF3B1D; --roze: #FF3B1D;
     --balanced-yellow: #ffea3d;
     --white: #ffffff;
     --vital-green: #65b32e; /* subtitels */
@@ -34,10 +34,10 @@
     --rood: #dc2626; --rood-licht: #fee2e2; --rood-rand: #fca5a5;
     --fv: 'FlandersArtSans', 'Arial Black', Arial, sans-serif;
     --fo: 'NotoSans', Arial, sans-serif;
-    --achtergrond: #fffbd8; --kaart: #f3f1ef; --rand: #c8dbb8;
-    --tekst: #010100; --tekst-zacht: #4a6a3a;
+    --achtergrond: #fffbd8; --kaart: #f3f1ef; --rand: #ded6bd;
+    --tekst: #010100; --tekst-zacht: #526052;
     --radius: 12px; --radius-sm: 8px; --radius-lg: 16px;
-    --jaar-kleur: #006633; --jaar-kleur-licht: #e0efd5;
+    --jaar-kleur: #FF3B1D; --jaar-kleur-licht: #fff0ec;
   }
   /* ── MATERIAL SYMBOLS ROUNDED ───────────────────── */
   .material-symbols-rounded {
@@ -385,11 +385,17 @@
      V4: meer spelgevoel, zonder nieuwe kleuren of fonts
   ══════════════════════════════════════════════════ */
   body::before {
-    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
     background:
-      radial-gradient(circle at 12% 10%, rgba(255,59,29,0.08), transparent 24%),
-      radial-gradient(circle at 88% 18%, rgba(255,255,255,0.42), transparent 22%),
-      linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0));
+      radial-gradient(
+        circle at 12% 10%,
+        rgba(255, 59, 29, .07),
+        transparent 24%
+      );
   }
   .trainer-header { box-shadow: 0 8px 22px rgba(0,0,0,0.04); }
   .voortgang-balk-wrap { height: 11px; background: rgba(0,102,51,0.11); border: 1px solid rgba(0,102,51,0.12); }
@@ -1368,17 +1374,17 @@
       </div>
       <div class="thema-kaart is-demo">
         <div class="thema-kaart-media"><img src="../../images/woordenschat/cardthema1_5de.png" alt="Thema 1"></div>
-        <div class="thema-kaart-body"><div class="thema-kaart-naam">Thema 1 <span>Nog in te vullen</span></div><div class="thema-kaart-meta">woordenlijst laden…</div></div>
+        <div class="thema-kaart-body"><div class="thema-kaart-naam">Thema 1 <span>Tantae molis</span></div><div class="thema-kaart-meta">woordenlijst laden…</div></div>
         <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:0%"></div></div>
       </div>
       <div class="thema-kaart is-demo">
         <div class="thema-kaart-media"><img src="../../images/woordenschat/cardthema2_5de.png" alt="Thema 2"></div>
-        <div class="thema-kaart-body"><div class="thema-kaart-naam">Thema 2 <span>Nog in te vullen</span></div><div class="thema-kaart-meta">woordenlijst laden…</div></div>
+        <div class="thema-kaart-body"><div class="thema-kaart-naam">Thema 2 <span>Odi et amo</span></div><div class="thema-kaart-meta">woordenlijst laden…</div></div>
         <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:0%"></div></div>
       </div>
       <div class="thema-kaart is-demo">
         <div class="thema-kaart-media"><img src="../../images/woordenschat/cardthema3_5de.png" alt="Thema 3"></div>
-        <div class="thema-kaart-body"><div class="thema-kaart-naam">Thema 3 <span>Nog in te vullen</span></div><div class="thema-kaart-meta">woordenlijst laden…</div></div>
+        <div class="thema-kaart-body"><div class="thema-kaart-naam">Thema 3 <span>Nemo sine vitio</span></div><div class="thema-kaart-meta">woordenlijst laden…</div></div>
         <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:0%"></div></div>
       </div>
     </div>
@@ -1825,9 +1831,9 @@ function berekenLokaleLeaderboard() {
 // THEMA-CONFIGURATIE (iconen + namen)
 // ══════════════════════════════════════════════
 const THEMA_CONFIG = {
-  1: { naam: 'Thema 1', afbeelding: '../../images/woordenschat/cardthema1_5de.png' },
-  2: { naam: 'Thema 2', afbeelding: '../../images/woordenschat/cardthema2_5de.png' },
-  3: { naam: 'Thema 3', afbeelding: '../../images/woordenschat/cardthema3_5de.png' },
+  1: { naam: 'Tantae molis', afbeelding: '../../images/woordenschat/cardthema1_5de.png' },
+  2: { naam: 'Odi et amo', afbeelding: '../../images/woordenschat/cardthema2_5de.png' },
+  3: { naam: 'Nemo sine vitio', afbeelding: '../../images/woordenschat/cardthema3_5de.png' },
 };
 
 // State voor kaart-selectie
